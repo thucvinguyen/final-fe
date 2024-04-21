@@ -1,63 +1,40 @@
 import React from "react";
-import {
-  Typography,
-  Button,
-  Container,
-  Grid,
-  Card,
-  CardContent,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Typography, Container, Grid } from "@mui/material";
+import useAuth from "../hooks/useAuth";
+import FeatureCard from "../components/FeatureCard";
 
 function HomePage() {
+  const { user } = useAuth();
   return (
     <div>
       <Container maxWidth="md" sx={{ textAlign: "center", my: 4 }}>
         <Typography variant="h2" sx={{ mb: 2 }}>
-          Welcome to
+          Welcome, {user ? user.name : "Guest"}
         </Typography>
-        <Typography variant="h5" sx={{ mb: 4 }}>
-          Your one-stop solution to [user's goal here]
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/get-started"
-        >
-          Get Started
-        </Button>
       </Container>
 
-      {/* Features section */}
       <Container maxWidth="md" sx={{ my: 4 }}>
         <Typography variant="h4" sx={{ textAlign: "center", mb: 4 }}>
-          Features
+          Our Features
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">Feature 1</Typography>
-                <Typography>Short description of Feature 1</Typography>
-              </CardContent>
-            </Card>
+            <FeatureCard
+              name="Exercise Library"
+              description="Offers a variety of exercises for different body parts, complete with instructions and images to guide users."
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">Feature 2</Typography>
-                <Typography>Short description of Feature 2</Typography>
-              </CardContent>
-            </Card>
+            <FeatureCard
+              name="Fitness Tracker"
+              description="Allows users to track their daily workout exercises and diet."
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">Feature 3</Typography>
-                <Typography>Short description of Feature 3</Typography>
-              </CardContent>
-            </Card>
+            <FeatureCard
+              name="Calorie Dashboard"
+              description="Provides charts and logs for tracking daily, weekly, and monthly calorie intake and expenditure."
+            />
           </Grid>
         </Grid>
       </Container>

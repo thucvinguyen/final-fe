@@ -66,10 +66,18 @@ function MainHeader() {
       </Box>
 
       <Divider sx={{ borderStyle: "dashed" }} />
-
       <MenuItem
         onClick={handleMenuClose}
         to="/"
+        component={RouterLink}
+        sx={{ mx: 1 }}
+      >
+        Homepage
+      </MenuItem>
+
+      <MenuItem
+        onClick={handleMenuClose}
+        to="/me"
         component={RouterLink}
         sx={{ mx: 1 }}
       >
@@ -110,7 +118,10 @@ function MainHeader() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{
+              display: { xs: "none", sm: "block" },
+              fontFamily: "Copperplate, Fantasy",
+            }}
           >
             GymSpace
           </Typography>

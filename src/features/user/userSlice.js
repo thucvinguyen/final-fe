@@ -43,36 +43,18 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const updateUserProfile =
-  ({
-    userId,
-    name,
-    avatarUrl,
-    coverUrl,
-    aboutMe,
-    city,
-    country,
-    company,
-    jobTitle,
-    facebookLink,
-    instagramLink,
-    linkedinLink,
-    twitterLink,
-  }) =>
+  ({ userId, name, gender, age, height, weight, avatarUrl, goal }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const data = {
         name,
-        coverUrl,
-        aboutMe,
-        city,
-        country,
-        company,
-        jobTitle,
-        facebookLink,
-        instagramLink,
-        linkedinLink,
-        twitterLink,
+        gender,
+        age,
+        height,
+        weight,
+        avatarUrl,
+        goal,
       };
       if (avatarUrl instanceof File) {
         const imageUrl = await cloudinaryUpload(avatarUrl);

@@ -6,13 +6,21 @@ import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormProvider, FTextField, FUploadAvatar } from "../../components/form";
+import {
+  FormProvider,
+  FSelect,
+  FTextField,
+  FUploadAvatar,
+} from "../../components/form";
 import { fData } from "../../utils/numberFormat";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "./userSlice";
 
 const UpdateUserSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
+  age: yup.number().positive().integer(),
+  height: yup.number().positive().integer(),
+  weight: yup.number().positive().integer(),
 });
 
 function AccountGeneral() {
@@ -22,15 +30,12 @@ function AccountGeneral() {
   const defaultValues = {
     name: user?.name || "",
     email: user?.email || "",
-    jobTitle: user?.jobTitle || "",
-    company: user?.company || "",
+    gender: user?.gender || "",
+    age: user?.age || "",
+    height: user?.height || "",
+    weight: user?.weight || "",
     avatarUrl: user?.avatarUrl || "",
-    coverUrl: user?.coverUrl || "",
-    phoneNumber: user?.phoneNumber || "",
-    address: user?.address || "",
-    city: user?.city || "",
-    country: user?.country || "",
-    aboutMe: user?.aboutMe || "",
+    goal: user?.goal || "",
   };
 
   const methods = useForm({
@@ -109,21 +114,28 @@ function AccountGeneral() {
             >
               <FTextField name="name" label="Name" />
               <FTextField name="email" label="Email" disabled />
-
-              <FTextField name="jobTitle" label="Job Title" />
-              <FTextField name="company" label="Company" />
-
-              <FTextField name="phoneNumber" label="Phone Number" />
-              <FTextField name="address" label="Address" />
-
-              <FTextField name="city" label="City" />
-              <FTextField name="country" label="Country" />
+              <FSelect name="gender" label="Gender">
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </FSelect>{" "}
+              <FTextField name="age" label="Age" />
+              <FTextField name="height" label="Height" />
+              <FTextField name="weight" label="Weight" />
+              <FSelect name="goal" label="Goal">
+                <option value="" disabled>
+                  Select Goal
+                </option>
+                <option value="Lose fat">Lose fat</option>
+                <option value="Gain muscle">Gain muscle</option>
+                <option value="Mantain health">Mantain health</option>
+              </FSelect>
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <FTextField name="coverUrl" label="Home Profile Cover Image" />
-              <FTextField name="aboutMe" multiline rows={4} label="About Me" />
-
               <LoadingButton
                 type="submit"
                 variant="contained"

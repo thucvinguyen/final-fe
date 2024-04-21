@@ -14,7 +14,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
-import { FormProvider, FTextField, FSelect } from "../components/form";
+import { FormProvider, FTextField } from "../components/form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -26,13 +26,13 @@ const RegisterSchema = Yup.object().shape({
   passwordConfirmation: Yup.string()
     .required("Please confirm your password")
     .oneOf([Yup.ref("password")], "Passwords must match"),
-  age: Yup.number().integer().required("Age is required"),
-  role: Yup.string()
-    .oneOf(["Gymer", "Personal Trainer"])
-    .required("Role is required"),
-  goal: Yup.string()
-    .oneOf(["Lose fat", "Gain muscle", "Maintain health"])
-    .required("Goal is required"),
+  // age: Yup.number().integer().required("Age is required"),
+  // role: Yup.string()
+  //   .oneOf(["Gymer", "Personal Trainer"])
+  //   .required("Role is required"),
+  // goal: Yup.string()
+  //   .oneOf(["Lose fat", "Gain muscle", "Maintain health"])
+  //   .required("Goal is required"),
 });
 
 const defaultValues = {
@@ -40,9 +40,6 @@ const defaultValues = {
   email: "",
   password: "",
   passwordConfirmation: "",
-  age: "",
-  role: "",
-  goal: "",
 };
 
 function RegisterPage() {
@@ -64,9 +61,9 @@ function RegisterPage() {
   } = methods;
 
   const onSubmit = async (data) => {
-    const { name, email, password, age, role, goal } = data;
+    const { name, email, password } = data;
     try {
-      await auth.register({ name, email, password, age, role, goal }, () => {
+      await auth.register({ name, email, password }, () => {
         navigate("/", { replace: true });
       });
     } catch (error) {
@@ -131,7 +128,7 @@ function RegisterPage() {
               ),
             }}
           />
-          <FTextField name="age" label="Age" />
+          {/* <FTextField name="age" label="Age" />
           <FSelect name="role" label="I am">
             {[{ label: "Gymer" }, { label: "Personal Trainer" }].map(
               (option) => (
@@ -151,7 +148,7 @@ function RegisterPage() {
                 {option.label}
               </option>
             ))}
-          </FSelect>
+          </FSelect> */}
 
           <LoadingButton
             fullWidth

@@ -1,14 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import postReducer from "../features/post/postSlice";
 import userReducer from "../features/user/userSlice";
-import commentReducer from "../features/comment/commentSlice";
-import friendReducer from "../features/friend/friendSlice";
+import exerciseReducer from "../features/exercise/exerciseSlice";
+import workoutReducer from "../features/workout/workoutSlice";
+import mealReducer from "../features/meal/mealSlice";
 
 const rootReducer = combineReducers({
-  post: postReducer,
   user: userReducer,
-  comment: commentReducer,
-  friend: friendReducer,
+  exercise: exerciseReducer,
+  meal: mealReducer,
+  workout: workoutReducer,
 });
 
 const store = configureStore({
