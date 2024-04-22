@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { getWorkouts } from "./workoutSlice";
 
-function ExerciseList() {
+function WorkoutList() {
   const dispatch = useDispatch();
   const { workouts, currentPage, totalPages } = useSelector(
     (state) => state.workout
@@ -58,9 +58,11 @@ function ExerciseList() {
         page={currentPage}
         onChange={handlePageChange}
         sx={{ mt: 2, display: "flex", justifyContent: "center" }}
+        variant="outlined"
+        shape="rounded"
       />
     </>
   );
 }
 
-export default ExerciseList;
+export default WorkoutList;

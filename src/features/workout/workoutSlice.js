@@ -48,11 +48,9 @@ export const getWorkouts =
         page,
         limit,
       };
-      // if (filterName) params.name = filterName;
       const response = await apiService.get("/workouts", {
         params,
       });
-      // Dispatch the success action with fetched data
       dispatch(slice.actions.getWorkoutsSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));

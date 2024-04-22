@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { CssBaseline } from "@mui/material";
 import {
   alpha,
   createTheme,
   ThemeProvider as MUIThemeProvider,
 } from "@mui/material/styles";
-import customizeComponents from "./customizations";
 
 const PRIMARY = {
   lighter: "#555555",
@@ -56,43 +55,20 @@ const GREY = {
 };
 
 function ThemeProvider({ children }) {
-  // State to track the current theme: 'light' or 'dark'
-  const [themeMode, setThemeMode] = useState(() => {
-    const savedThemeMode = localStorage.getItem("themeMode");
-    return savedThemeMode ? savedThemeMode : "light";
-  });
-
-  // Save the user's theme preference in local storage
-  const toggleTheme = () => {
-    const newThemeMode = themeMode === "light" ? "dark" : "light";
-    setThemeMode(newThemeMode);
-    localStorage.setItem("themeMode", newThemeMode);
-  };
-
-  // Define light and dark theme options
   const themeOptions = {
     palette: {
-      mode: themeMode,
       primary: PRIMARY,
       secondary: SECONDARY,
       success: SUCCESS,
-      text: {
-        primary: themeMode === "dark" ? GREY[100] : GREY[800],
-        secondary: themeMode === "dark" ? GREY[300] : GREY[600],
-        disabled: themeMode === "dark" ? GREY[400] : GREY[500],
-      },
-      background: {
-        paper: themeMode === "dark" ? GREY[900] : "#fff",
-        default: themeMode === "dark" ? GREY[900] : "#fff",
-        neutral: themeMode === "dark" ? GREY[800] : GREY[200],
-      },
+      text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
+      background: { paper: "#fff", default: "#fff", neutral: GREY[200] },
       action: {
-        active: themeMode === "dark" ? GREY[400] : GREY[600],
-        hover: themeMode === "dark" ? GREY[600] : GREY[500_8],
-        selected: themeMode === "dark" ? GREY[700] : GREY[500_16],
-        disabled: themeMode === "dark" ? GREY[700] : GREY[500_80],
-        disabledBackground: themeMode === "dark" ? GREY[700] : GREY[500_24],
-        focus: themeMode === "dark" ? GREY[600] : GREY[500_24],
+        active: GREY[600],
+        hover: GREY[500_8],
+        selected: GREY[500_16],
+        disabled: GREY[500_80],
+        disabledBackground: GREY[500_24],
+        focus: GREY[500_24],
         hoverOpacity: 0.08,
         disabledOpacity: 0.48,
       },
@@ -101,13 +77,11 @@ function ThemeProvider({ children }) {
   };
 
   const theme = createTheme(themeOptions);
-  theme.components = customizeComponents(theme);
 
   return (
     <MUIThemeProvider theme={theme}>
       <CssBaseline />
-      {/* Pass the toggleTheme function as a prop to children */}
-      {React.cloneElement(children, { toggleTheme })}
+      {children}
     </MUIThemeProvider>
   );
 }
