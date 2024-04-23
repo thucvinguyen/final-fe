@@ -76,7 +76,7 @@ export const getExercises =
     dispatch(slice.actions.startLoading());
     try {
       const params = { page, limit };
-      const response = await apiService.get(`/exercises/user/${userId}`, {
+      const response = await apiService.get(`/exercises/${userId}`, {
         params,
       });
       if (page === 1) dispatch(slice.actions.resetExercises());

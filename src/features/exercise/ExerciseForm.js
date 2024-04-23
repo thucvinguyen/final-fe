@@ -12,12 +12,20 @@ const exerciseSchema = yup.object().shape({
   name: yup.string().required("Exercise name is required"),
   sets: yup.number().required("Set is required").positive().integer(),
   reps: yup.number().required("Rep is required").positive().integer(),
+  // date: yup
+  //   .string()
+  //   .required("Date is required")
+  //   .matches(
+  //     /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{2}$/,
+  //     "Date must be in the format DD/MM/YY"
+  //   ),
 });
 
 const defaultValues = {
   name: "",
   sets: "",
   reps: "",
+  // date: "",
 };
 
 function ExerciseForm() {
@@ -38,10 +46,6 @@ function ExerciseForm() {
     console.log("data", data);
     dispatch(createExercise(data)).then(() => reset());
   };
-
-  // useEffect(() => {
-  //   dispatch(getExercises({ userId: YOUR_USER_ID }));
-  // }, [dispatch]); // Dispatch getExercises on component mount
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -74,6 +78,11 @@ function ExerciseForm() {
             type="number"
             sx={{ width: "60%", mt: 2 }}
           />
+          {/* <FTextField
+            name="date"
+            label="Date (DD/MM/YY)"
+            sx={{ width: "60%", mt: 2 }}
+          /> */}
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <LoadingButton
