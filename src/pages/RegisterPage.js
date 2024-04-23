@@ -14,7 +14,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
-import { FormProvider, FTextField } from "../components/form";
+import { FormProvider, FSelect, FTextField } from "../components/form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -40,6 +40,8 @@ const defaultValues = {
   email: "",
   password: "",
   passwordConfirmation: "",
+  // age: "",
+  // goal: "",
 };
 
 function RegisterPage() {
@@ -128,8 +130,8 @@ function RegisterPage() {
               ),
             }}
           />
-          {/* <FTextField name="age" label="Age" />
-          <FSelect name="role" label="I am">
+          {/* <FTextField name="age" label="Age" /> */}
+          {/* <FSelect name="role" label="I am">
             {[{ label: "Gymer" }, { label: "Personal Trainer" }].map(
               (option) => (
                 <option key={option.code} value={option.label}>
@@ -137,8 +139,8 @@ function RegisterPage() {
                 </option>
               )
             )}
-          </FSelect>
-          <FSelect name="goal" label="Goal">
+          </FSelect> */}
+          {/* <FSelect name="goal" label="Goal">
             {[
               { label: "Lose fat" },
               { label: "Gain muscle" },

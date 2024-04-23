@@ -7,6 +7,10 @@ import {
   TableHead,
   TableRow,
   Pagination,
+  Typography,
+  Box,
+  Paper,
+  Divider,
 } from "@mui/material";
 import { getWorkouts } from "./workoutSlice";
 
@@ -16,7 +20,7 @@ function WorkoutList() {
     (state) => state.workout
   );
 
-  const workoutsPerPage = 10;
+  const workoutsPerPage = 9;
 
   useEffect(() => {
     dispatch(getWorkouts({ page: currentPage, limit: workoutsPerPage }));
@@ -28,7 +32,7 @@ function WorkoutList() {
 
   return (
     <>
-      <Table>
+      {/* <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -51,7 +55,26 @@ function WorkoutList() {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table> */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+        {workouts &&
+          workouts.map((workout, index) => (
+            <Paper key={index} style={{ width: "30%", padding: "10px" }}>
+              <Typography
+                variant="h5"
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                {workout.name}
+              </Typography>
+              <Divider />
+              <Typography>Group: {workout.part}</Typography>
+              <Typography>Equipment: {workout.equipment}</Typography>
+              <Typography>Level: {workout.level}</Typography>
+              <Typography>Type: {workout.type}</Typography>
+              <Typography>Instruction: {workout.description}</Typography>
+            </Paper>
+          ))}
+      </div>
 
       <Pagination
         count={totalPages}

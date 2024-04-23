@@ -7,8 +7,9 @@ import { searchWorkoutsByName } from "./workoutSlice";
 function WorkoutSearch() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
-
+  console.log("workout search render:");
   const handleSubmit = (e) => {
+    console.log(e);
     e.preventDefault();
     dispatch(searchWorkoutsByName(searchQuery));
   };

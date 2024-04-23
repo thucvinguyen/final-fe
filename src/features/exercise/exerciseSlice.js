@@ -8,7 +8,7 @@ const initialState = {
   error: null,
   exercises: [],
   exercisesById: {},
-  currentPageExercises: [],
+  // currentPageExercises: [],
 };
 
 const slice = createSlice({
