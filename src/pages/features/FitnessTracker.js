@@ -19,31 +19,31 @@ function FitnessTracker() {
           <MealForm />
         </Grid>
       </Grid>
-      <Box sx={{ textAlign: "center", mt: 4 }}>
+      {/* <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="h6">Message</Typography>
-      </Box>
+      </Box> */}
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
-          <Box sx={{ mt: 2 }}>
+          {/* <Box sx={{ mt: 2 }}>
             <Paper sx={{ padding: 2, mb: 2 }}>
               <Typography variant="body1" fontWeight="bold">
                 Total Calories Burned:
               </Typography>
             </Paper>
-          </Box>
+          </Box> */}
           <Box sx={{ mt: 2 }}>
             <ExerciseLog />
           </Box>
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Box sx={{ mt: 2 }}>
+          {/* <Box sx={{ mt: 2 }}>
             <Paper sx={{ padding: 2, mb: 2 }}>
               <Typography variant="body1" fontWeight="bold">
                 Total Calories Consumed:
               </Typography>
             </Paper>
-          </Box>
+          </Box> */}
           <Box sx={{ mt: 2 }}>
             <MealLog />
           </Box>

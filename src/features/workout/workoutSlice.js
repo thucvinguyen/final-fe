@@ -40,16 +40,13 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const getWorkouts =
-  ({ page = 1, limit = 10 }) =>
+  ({ page = 1, limit = 10, ...params }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const params = {
-        page,
-        limit,
-      };
-      const response = await apiService.get("/workouts", {
-        params,
+      const queryParams = new URLSearchParams(params).toString();
+      const response = await apiService.get(`/workouts?${queryParams}`, {
+        params: { page, limit },
       });
       dispatch(slice.actions.getWorkoutsSuccess(response.data));
     } catch (error) {
@@ -58,13 +55,13 @@ export const getWorkouts =
     }
   };
 
-export const searchWorkoutsByName = (name) => async (dispatch) => {
-  dispatch(slice.actions.startLoading());
-  try {
-    const response = await apiService.get(`/workouts/${name}`);
-    dispatch(slice.actions.getWorkoutsSuccess(response.data));
-  } catch (error) {
-    dispatch(slice.actions.hasError(error.message));
-    toast.error(error.message);
-  }
-};
+// export const searchWorkoutsByName = (name) => async (dispatch) => {
+//   dispatch(slice.actions.startLoading());
+//   try {
+//     const response = await apiService.get(`/workouts/${name}`);
+//     dispatch(slice.actions.getWorkoutsSuccess(response.data));
+//   } catch (error) {
+//     dispatch(slice.actions.hasError(error.message));
+//     toast.error(error.message);
+//   }
+// };

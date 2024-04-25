@@ -8,7 +8,7 @@ const initialState = {
   error: null,
   exercises: [],
   exercisesById: {},
-  // currentPageExercises: [],
+  currentPageExercises: [],
 };
 
 const slice = createSlice({
@@ -34,7 +34,6 @@ const slice = createSlice({
       state.error = null;
       state.exercises.push(action.payload);
     },
-
     getExercisesSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
@@ -46,6 +45,15 @@ const slice = createSlice({
           state.currentPageExercises.push(exercise._id);
       });
       state.totalExercises = count;
+    },
+    deleteExerciseSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { id } = action.payload;
+      delete state.exercisesById[id];
+      state.currentPageExercises = state.currentPageExercises.filter(
+        (exerciseId) => exerciseId !== id
+      );
     },
   },
 });
@@ -86,3 +94,15 @@ export const getExercises =
       toast.error(error.message);
     }
   };
+
+export const deleteExercise = (id) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.delete(`/exercises/${id}`);
+    dispatch(slice.actions.deleteExerciseSuccess({ ...response.data, id }));
+    toast.success("Exercise deleted successfully");
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};

@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Link, Typography, Button } from "@mui/material";
+import React, { useContext } from "react";
+import { Link, Typography, IconButton } from "@mui/material";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useTheme } from "@emotion/react";
+import { ColorModeContext } from "../theme";
 
 function MainFooter() {
-  const [themeMode, setThemeMode] = useState(() => {
-    const savedTheme = localStorage.getItem("themeMode");
-    return savedTheme ? savedTheme : "light";
-  });
-
-  const toggleTheme = () => {
-    const newThemeMode = themeMode === "light" ? "dark" : "light";
-    setThemeMode(newThemeMode);
-    localStorage.setItem("themeMode", newThemeMode);
-    if (window.toggleTheme) {
-      window.toggleTheme();
-    }
-  };
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("themeMode");
-    if (savedTheme) {
-      setThemeMode(savedTheme);
-    }
-  }, []);
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
 
   return (
     <>
@@ -35,9 +19,9 @@ function MainFooter() {
         {new Date().getFullYear()}
         {"."}
       </Typography>
-      <Button onClick={toggleTheme}>
-        {themeMode === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
-      </Button>
+      <IconButton onClick={colorMode.toggleColorMode}>
+        {theme.palette.mode === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
+      </IconButton>
     </>
   );
 }

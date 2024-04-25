@@ -1,49 +1,62 @@
-import {
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  Divider,
-  Button,
-} from "@mui/material";
+import { Typography, Box, Button, Grid } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { styled } from "@mui/system";
 
-function FeatureCard({ name, description }) {
+const HoverButton = styled(Button)({
+  transition: "all 0.1s ease-in-out",
+  "&:hover": {
+    transform: "scale(1.1)",
+  },
+});
+
+function FeatureCard({ name, description, image }) {
   return (
-    <Card
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        height: "100%",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
-      <CardContent sx={{ flexGrow: 1 }}>
-        <Typography
-          variant="h6"
-          gutterBottom
-          textAlign="center"
-          sx={{ fontFamily: "Copperplate, Fantasy" }}
+    <Grid container spacing={0} justifyContent="center" alignItems="center">
+      <Grid item xs={12}>
+        <img
+          src={image}
+          alt={name}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            maxHeight: "300px",
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Grid
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "100%",
+            padding: "20px",
+          }}
         >
-          {name}
-        </Typography>
-        <Divider sx={{ my: 1 }} />
-        <Typography color="textSecondary">{description}</Typography>
-      </CardContent>
-      {/* The button is placed in a Box at the bottom of the card */}
-      <Box sx={{ textAlign: "center", mb: 2 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to={`/features/${name.toLowerCase().replace(/\s+/g, "-")}`}
-        >
-          Get Started
-        </Button>
-      </Box>
-    </Card>
+          <Typography
+            variant="h6"
+            gutterBottom
+            textAlign="center"
+            sx={{ fontFamily: "Copperplate, Fantasy" }}
+          >
+            {name}
+          </Typography>
+          <Typography color="textSecondary">{description}</Typography>
+          <Box sx={{ textAlign: "center", mt: 2, mb: 2 }}>
+            <HoverButton
+              variant="contained"
+              color="primary"
+              component={Link}
+              to={`/features/${name.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              Get Start
+            </HoverButton>
+          </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 
