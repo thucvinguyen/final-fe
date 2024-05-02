@@ -1,57 +1,46 @@
 import React from "react";
-import { Controller, useForm, useFormContext } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FTextField, FormProvider } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
-import { createExercise } from "./exerciseSlice";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { editExercise } from "./exerciseSlice";
 
 const exerciseSchema = yup.object().shape({
   name: yup.string().required("Exercise name is required"),
   sets: yup.number().required("Set is required").positive().integer(),
   reps: yup.number().required("Rep is required").positive().integer(),
-  date: yup.date().required("Date is required").nullable(),
 });
 
-const defaultValues = {
-  name: "",
-  sets: "",
-  reps: "",
-  date: "",
-};
-
-function ExerciseForm() {
-  const dispatch = useDispatch();
+function ExerciseEdit({ exercise, handleCloseModal, setEditMode }) {
   const { isLoading } = useSelector((state) => state.exercise);
-
-  const { control } = useFormContext();
 
   const methods = useForm({
     resolver: yupResolver(exerciseSchema),
-    defaultValues,
+    defaultValues: {
+      name: `${exercise.name}`,
+      sets: `${exercise.sets}`,
+      reps: `${exercise.reps}`,
+    },
   });
   const {
     handleSubmit,
-    reset,
     formState: { isSubmitting },
   } = methods;
+  const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
-    console.log("data", data);
-    dispatch(createExercise(data)).then(() => reset());
+  const onSubmit = (updatedData) => {
+    dispatch(editExercise(exercise._id, updatedData));
+    setEditMode(false);
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Box>
         <Typography variant="h6" textAlign="center">
-          Log Exercise
+          Edit Exercise
         </Typography>
         <Box
           sx={{
@@ -64,45 +53,41 @@ function ExerciseForm() {
           <FTextField
             name="name"
             label="Exercise Name"
+            defaultValue={exercise.name}
             sx={{ width: "60%", mt: 2 }}
           />
           <FTextField
             name="sets"
             label="Set"
             type="number"
+            defaultValue={exercise.sets}
             sx={{ width: "60%", mt: 2 }}
           />
           <FTextField
             name="reps"
             label="Rep"
             type="number"
-            sx={{ width: "60%", mt: 2, mb: 2 }}
+            defaultValue={exercise.reps}
+            sx={{ width: "60%", mt: 2 }}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DatePicker"]}>
-              <DatePicker label="Date" name="date" />
-            </DemoContainer>
-          </LocalizationProvider>
-          {/* <Controller
-            name="date"
-            control={control}
-            render={({ field }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker"]}>
-                  <DatePicker {...field} label="Date" />
-                </DemoContainer>
-              </LocalizationProvider>
-            )}
-          /> */}
         </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 2, mb: 3 }}>
           <LoadingButton
             type="submit"
             variant="contained"
             loading={isSubmitting || isLoading}
             color="primary"
+            sx={{ marginRight: 2 }} // Add margin-right to create space between the buttons
           >
-            Add Exercise
+            Save
+          </LoadingButton>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            onClick={handleCloseModal}
+            color="primary"
+          >
+            Close
           </LoadingButton>
         </Box>
       </Box>
@@ -110,4 +95,4 @@ function ExerciseForm() {
   );
 }
 
-export default ExerciseForm;
+export default ExerciseEdit;

@@ -8,6 +8,7 @@ import image_1 from "../images/feature1_img.png";
 import image_2 from "../images/feature2_img.png";
 import image_3 from "../images/feature3_img.png";
 import Support from "../components/Support";
+import Community from "../components/Community";
 
 function HomePage() {
   const { user } = useAuth();
@@ -25,12 +26,19 @@ function HomePage() {
           variant="h2"
           sx={{
             mt: 4,
+            mb: 4,
             fontFamily: "Copperplate, Fantasy",
           }}
         >
           Welcome to GymSpace, {user ? user.name : "Guest"}!
         </Typography>
-        <animated.div style={{ ...cardAnimation, marginTop: "-130px" }}>
+        <Typography variant="h7" color="textSecondary">
+          Whether you're a seasoned gym-goer or just starting your fitness
+          journey, GymSpace provides a comprehensive platform to track your
+          workouts, monitor your progress, and discover new exercises tailored
+          to your fitness goals.
+        </Typography>
+        <animated.div style={{ ...cardAnimation, marginTop: "-100px" }}>
           <img src={homePageImg} alt="logo" style={{ width: "90%" }} />
         </animated.div>
       </Container>
@@ -47,7 +55,11 @@ function HomePage() {
         >
           Our Features
         </Typography>
-        <Grid container spacing={6} justifyContent="center">
+        <Typography variant="h7" color="textSecondary">
+          With intuitive features and personalized recommendations, achieving
+          your fitness aspirations has never been easier.
+        </Typography>
+        <Grid sx={{ mt: 1 }} container spacing={6} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
             <animated.div style={cardAnimation}>
               <FeatureCard
@@ -76,6 +88,19 @@ function HomePage() {
             </animated.div>
           </Grid>
         </Grid>
+      </Container>
+
+      <Container maxWidth="md" sx={{ textAlign: "center", my: 4 }}>
+        <Typography
+          variant="h2"
+          sx={{
+            mt: 10,
+            fontFamily: "Copperplate, Fantasy",
+          }}
+        >
+          Community
+        </Typography>
+        <Community />
       </Container>
 
       <Container maxWidth="md" sx={{ textAlign: "center", my: 4 }}>

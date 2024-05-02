@@ -81,34 +81,26 @@ function AuthProvider({ children }) {
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem("accessToken");
-        // console.log("Access Token:", accessToken);
+
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-          // console.log("Access token is valid. Fetching user data...");
 
           const response = await apiService.get("/users/me");
           const user = response.data;
-          // console.log("User data:", user);
 
           dispatch({
             type: INITIALIZE,
             payload: { isAuthenticated: true, user },
           });
-          // console.log("Authentication initialized with user data.");
         } else {
-          // console.log("No valid access token found. Setting session to null.");
-
           setSession(null);
 
           dispatch({
             type: INITIALIZE,
             payload: { isAuthenticated: false, user: null },
           });
-          // console.log("Authentication initialized without user data.");
         }
       } catch (err) {
-        // console.error("Error during initialization:", err);
-
         console.error(err);
 
         setSession(null);
@@ -119,7 +111,6 @@ function AuthProvider({ children }) {
             user: null,
           },
         });
-        // console.log("Authentication initialized with error handling.");
       }
     };
 
@@ -144,11 +135,18 @@ function AuthProvider({ children }) {
     callback();
   };
 
-  const register = async ({ name, email, password }, callback) => {
+  const register = async (
+    { name, email, password, gender, goal, height, weight },
+    callback
+  ) => {
     const response = await apiService.post("/users", {
       name,
       email,
       password,
+      gender,
+      goal,
+      height,
+      weight,
     });
 
     const { user, accessToken } = response.data;

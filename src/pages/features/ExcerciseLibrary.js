@@ -5,24 +5,67 @@ import WorkoutSearch from "../../features/workout/WorkoutSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { getWorkouts } from "../../features/workout/workoutSlice";
 import { useSpring, animated } from "react-spring";
+import { useSearchParams } from "react-router-dom";
+import WorkoutSort from "../../features/workout/WorkoutSort";
 
 function ExerciseLibrary() {
   const dispatch = useDispatch();
+  const [params, setParams] = useSearchParams();
+
   const { workouts, currentPage, totalPages } = useSelector(
     (state) => state.workout
   );
 
   const workoutsPerPage = 9;
 
-  useEffect(() => {
-    dispatch(getWorkouts({ page: currentPage, limit: workoutsPerPage }));
-  }, [dispatch, currentPage]);
+  const nameParam = params.get("name");
+  const partParam = params.get("part");
+  const equipmentParam = params.get("equipment");
+  const levelParam = params.get("level");
 
+  useEffect(() => {
+    // console.log("useeffect", nameParam);
+    if (!nameParam) {
+      dispatch(getWorkouts({ page: currentPage, limit: workoutsPerPage }));
+    }
+  }, []);
+
+  // const handlePageChange = (event, newPage) => {
+  //   console.log("page changed");
+  //   setParams({ page: newPage });
+
+  //   if (nameParam) {
+  //     setParams({ name: nameParam, page: newPage });
+  //   }
+  //   if (partParam) {
+  //     setParams({ part: partParam, page: newPage });
+  //   }
+  //   if (equipmentParam) {
+  //     setParams({ equipment: equipmentParam, page: newPage });
+  //   }
+  //   if (levelParam) {
+  //     setParams({ level: levelParam, page: newPage });
+  //   }
+  //   if (!nameParam) {
+  //     dispatch(getWorkouts({ page: newPage, limit: workoutsPerPage }));
+  //   }
+  // };
   const handlePageChange = (event, newPage) => {
-    dispatch(getWorkouts({ page: newPage, limit: workoutsPerPage }));
+    const updatedParams = {};
+
+    if (nameParam) updatedParams.name = nameParam;
+    if (partParam) updatedParams.part = partParam;
+    if (equipmentParam) updatedParams.equipment = equipmentParam;
+    if (levelParam) updatedParams.level = levelParam;
+
+    updatedParams.page = newPage;
+
+    setParams(updatedParams);
+    dispatch(
+      getWorkouts({ page: newPage, limit: workoutsPerPage, ...updatedParams })
+    );
   };
 
-  // Animation props for the entire WorkoutList section
   const animationProps = useSpring({
     from: { opacity: 0, transform: "translateY(50px)" },
     to: { opacity: 1, transform: "translateY(0)" },
@@ -47,6 +90,14 @@ function ExerciseLibrary() {
           </Box>
         </Box>
 
+        <Box
+          sx={{
+            marginTop: 2,
+            padding: 2,
+          }}
+        >
+          <WorkoutSort />
+        </Box>
         <Pagination
           count={totalPages}
           page={currentPage}

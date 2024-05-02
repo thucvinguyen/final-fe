@@ -30,7 +30,9 @@ const slice = createSlice({
     createMealSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      state.meals.push(action.payload);
+      const newMeal = action.payload;
+      state.mealsById[newMeal._id] = newMeal;
+      state.currentPageMeals.unshift(newMeal._id);
     },
     getMealsSuccess(state, action) {
       state.isLoading = false;
@@ -53,15 +55,12 @@ const slice = createSlice({
         (mealId) => mealId !== id
       );
     },
+
     editMealSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      const { id } = action.payload;
-      state.mealsById[id] = {
-        ...state.mealsById[id],
-        name: action.payload.name,
-        calories: action.payload.calories,
-      };
+      const updatedMeal = action.payload;
+      state.mealsById[updatedMeal._id] = updatedMeal;
     },
   },
 });
@@ -105,22 +104,29 @@ export const deleteMeal = (id) => async (dispatch) => {
     const response = await apiService.delete(`/meals/${id}`);
     dispatch(slice.actions.deleteMealSuccess({ ...response.data, id }));
     toast.success("Meal deleted successfully");
-    // dispatch(getCurrentUserProfile());
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);
   }
 };
 
-export const editPost = (id, data) => async (dispatch) => {
+export const editMeal = (id, data) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
-    const content = data.content;
-    const response = await apiService.put(`/posts/${id}`, {
-      content,
+    const name = data.name;
+    const calories = data.calories;
+
+    const response = await apiService.put(`/meals/${id}`, {
+      name,
+      calories,
     });
-    dispatch(slice.actions.editPostSuccess({ ...response.data, id }));
-    toast.success("Update post successfully");
+    dispatch(
+      slice.actions.editMealSuccess({
+        ...response.data,
+        id,
+      })
+    );
+    toast.success("Update meal successfully");
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);

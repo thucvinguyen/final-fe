@@ -19,8 +19,16 @@ import { updateUserProfile } from "./userSlice";
 const UpdateUserSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   age: yup.number().positive().integer(),
-  height: yup.number().positive().integer(),
-  weight: yup.number().positive().integer(),
+  height: yup
+    .number()
+    .positive("Height must be a positive number")
+    .integer("Height must be an integer")
+    .min(100, "Height must be at least 100cm"),
+  weight: yup
+    .number()
+    .positive("Weight must be a positive number")
+    .integer("Weight must be an integer")
+    .min(10, "Weight must be at least 10kg"),
 });
 
 function AccountGeneral() {
@@ -120,7 +128,6 @@ function AccountGeneral() {
                 </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
-                <option value="Other">Other</option>
               </FSelect>{" "}
               <FTextField name="age" label="Age" />
               <FTextField name="height" label="Height" />
@@ -131,7 +138,7 @@ function AccountGeneral() {
                 </option>
                 <option value="Lose fat">Lose fat</option>
                 <option value="Gain muscle">Gain muscle</option>
-                <option value="Mantain health">Mantain health</option>
+                <option value="Maintain health">Mantain health</option>
               </FSelect>
             </Box>
 

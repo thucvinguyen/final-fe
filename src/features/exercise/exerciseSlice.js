@@ -32,8 +32,11 @@ const slice = createSlice({
     createExerciseSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      state.exercises.push(action.payload);
+      const newExercise = action.payload;
+      state.exercisesById[newExercise._id] = newExercise;
+      state.currentPageExercises.unshift(newExercise._id);
     },
+
     getExercisesSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
@@ -55,13 +58,20 @@ const slice = createSlice({
         (exerciseId) => exerciseId !== id
       );
     },
+
+    editExerciseSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const updatedExercise = action.payload;
+      state.exercisesById[updatedExercise._id] = updatedExercise;
+    },
   },
 });
 
 export default slice.reducer;
 
 export const createExercise =
-  ({ name, sets, reps }) =>
+  ({ name, sets, reps, date }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -69,6 +79,7 @@ export const createExercise =
         name,
         sets,
         reps,
+        date,
       });
       dispatch(slice.actions.createExerciseSuccess(response.data));
       toast.success("Exercise added successfully.");
@@ -101,6 +112,31 @@ export const deleteExercise = (id) => async (dispatch) => {
     const response = await apiService.delete(`/exercises/${id}`);
     dispatch(slice.actions.deleteExerciseSuccess({ ...response.data, id }));
     toast.success("Exercise deleted successfully");
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
+
+export const editExercise = (id, data) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const name = data.name;
+    const sets = data.sets;
+    const reps = data.reps;
+
+    const response = await apiService.put(`/exercises/${id}`, {
+      name,
+      sets,
+      reps,
+    });
+    dispatch(
+      slice.actions.editExerciseSuccess({
+        ...response.data,
+        id,
+      })
+    );
+    toast.success("Update exercise successfully");
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
     toast.error(error.message);

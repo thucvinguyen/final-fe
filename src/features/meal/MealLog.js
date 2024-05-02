@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Box, IconButton, Paper, Typography } from "@mui/material";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+
 import useAuth from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteMeal, getMeals } from "./mealSlice";
 import Modal from "../../components/form/Modal";
 import { LoadingButton } from "@mui/lab";
+import MealEdit from "./MealEdit";
 
 function MealLog() {
   const auth = useAuth();
   const [showModal, setShowModal] = useState(false);
-  const [mealIdToDelete, setMealIdToDelete] = useState(null); // State to store the ID of the meal to delete
+  const [mealIdToDelete, setMealIdToDelete] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [editMealId, setEditMealId] = useState(null);
 
   let userId = auth.user._id;
   const dispatch = useDispatch();
@@ -25,30 +30,58 @@ function MealLog() {
 
   const meals = currentPageMeals.map((mealId) => mealsById[mealId]);
 
-  const handleModalOpen = (mealId) => {
+  const handleOpenDeleteModal = (mealId) => {
     setShowModal(true);
-    setMealIdToDelete(mealId); // Set the mealIdToDelete state to the ID of the meal to delete
+    setMealIdToDelete(mealId);
   };
 
-  const handleModalClose = () => {
+  const handleCloseDeleteModal = () => {
     setShowModal(false);
-    setMealIdToDelete(null); // Reset the mealIdToDelete state
+    setMealIdToDelete(null);
   };
 
   const handleDeleteMeal = () => {
-    dispatch(deleteMeal(mealIdToDelete)); // Delete the meal with the ID stored in mealIdToDelete
-    handleModalClose();
+    dispatch(deleteMeal(mealIdToDelete));
+    handleCloseDeleteModal();
+  };
+
+  const handleEditMeal = (mealId) => {
+    setEditMode(true);
+    setEditMealId(mealId);
+  };
+
+  const handleCloseEditForm = () => {
+    setEditMode(false);
+    setEditMealId(null);
   };
 
   return (
     <div>
+      {editMode && editMealId && (
+        <MealEdit
+          meal={mealsById[editMealId]}
+          handleCloseModal={handleCloseEditForm}
+          setEditMode={setEditMode}
+        />
+      )}
       {meals.map((meal) => (
         <Paper sx={{ padding: 2, mb: 2 }} key={meal._id} meal={meal}>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="body1">Meal Name: {meal.name}</Typography>
-            <IconButton onClick={() => handleModalOpen(meal._id)}>
-              <DisabledByDefaultIcon />
-            </IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography variant="body1">Exercise Name: {meal.name}</Typography>
+            <Box>
+              <IconButton onClick={() => handleEditMeal(meal._id)}>
+                <ModeEditIcon />
+              </IconButton>
+              <IconButton onClick={() => handleOpenDeleteModal(meal._id)}>
+                <DisabledByDefaultIcon />
+              </IconButton>
+            </Box>
           </Box>
           <Typography variant="body1">
             Total Calories Consumed: {meal.calories}
@@ -67,13 +100,13 @@ function MealLog() {
             Load More
           </LoadingButton>
         ) : (
-          <Typography variant="h6">No Exercise Yet</Typography>
+          <Typography variant="h6">No Meal Yet</Typography>
         )}
       </Box>
       <Modal
         sx={{ display: "flex", justifyContent: "center" }}
         open={showModal}
-        onClose={handleModalClose}
+        onClose={handleCloseDeleteModal}
         onConfirm={handleDeleteMeal}
       />
     </div>

@@ -13,6 +13,7 @@ import ProfilePage from "../pages/ProfilePage";
 import ExcerciseLibrary from "../pages/features/ExcerciseLibrary";
 import FitnessTracker from "../pages/features/FitnessTracker";
 import CalorieDashboard from "../pages/features/CalorieDashboard";
+import CommunityExplore from "../pages/CommunityExplore";
 
 function Router() {
   return (
@@ -26,9 +27,10 @@ function Router() {
         }
       >
         <Route index element={<HomePage />} />
-        <Route path="me" element={<ProfilePage />} />
+        <Route path="me" element={<CalorieDashboard />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="user/:userId" element={<UserProfilePage />} />
+        <Route path="community" element={<CommunityExplore />} />
         <Route
           path="features/exercise-library"
           element={<ExcerciseLibrary />}

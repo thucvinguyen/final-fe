@@ -26,13 +26,12 @@ const RegisterSchema = Yup.object().shape({
   passwordConfirmation: Yup.string()
     .required("Please confirm your password")
     .oneOf([Yup.ref("password")], "Passwords must match"),
-  // age: Yup.number().integer().required("Age is required"),
-  // role: Yup.string()
-  //   .oneOf(["Gymer", "Personal Trainer"])
-  //   .required("Role is required"),
-  // goal: Yup.string()
-  //   .oneOf(["Lose fat", "Gain muscle", "Maintain health"])
-  //   .required("Goal is required"),
+  goal: Yup.string()
+    .oneOf(["Lose fat", "Gain muscle", "Maintain health"])
+    .required("Goal is required"),
+  gender: Yup.string().oneOf(["Male", "Female"]).required("Goal is required"),
+  weight: Yup.number().integer().required("Weight is required"),
+  height: Yup.number().integer().required("Height is required"),
 });
 
 const defaultValues = {
@@ -40,8 +39,10 @@ const defaultValues = {
   email: "",
   password: "",
   passwordConfirmation: "",
-  // age: "",
-  // goal: "",
+  goal: "Lose fat",
+  gender: "Other",
+  height: "",
+  weight: "",
 };
 
 function RegisterPage() {
@@ -63,11 +64,15 @@ function RegisterPage() {
   } = methods;
 
   const onSubmit = async (data) => {
-    const { name, email, password } = data;
+    console.log(data);
+    const { name, email, password, goal, gender, height, weight } = data;
     try {
-      await auth.register({ name, email, password }, () => {
-        navigate("/", { replace: true });
-      });
+      await auth.register(
+        { name, email, password, goal, gender, height, weight },
+        () => {
+          navigate("/", { replace: true });
+        }
+      );
     } catch (error) {
       reset();
       setError("responseError", error);
@@ -130,17 +135,14 @@ function RegisterPage() {
               ),
             }}
           />
-          {/* <FTextField name="age" label="Age" /> */}
-          {/* <FSelect name="role" label="I am">
-            {[{ label: "Gymer" }, { label: "Personal Trainer" }].map(
-              (option) => (
-                <option key={option.code} value={option.label}>
-                  {option.label}
-                </option>
-              )
-            )}
-          </FSelect> */}
-          {/* <FSelect name="goal" label="Goal">
+          <FSelect name="gender" label="Gender">
+            {[{ label: "Male" }, { label: "Female" }].map((option) => (
+              <option key={option.code} value={option.label}>
+                {option.label}
+              </option>
+            ))}
+          </FSelect>
+          <FSelect name="goal" label="Goal">
             {[
               { label: "Lose fat" },
               { label: "Gain muscle" },
@@ -150,7 +152,9 @@ function RegisterPage() {
                 {option.label}
               </option>
             ))}
-          </FSelect> */}
+          </FSelect>
+          <FTextField name="height" label="Height" />
+          <FTextField name="weight" label="Weight" />
 
           <LoadingButton
             fullWidth
