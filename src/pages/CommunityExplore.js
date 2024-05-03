@@ -1,6 +1,7 @@
 import React from "react";
 import UserList from "../features/user/UserList";
 import { Container, Grid } from "@mui/material";
+import UserProfilePage from "./UserProfilePage";
 
 function CommunityExplore() {
   return (
@@ -10,7 +11,7 @@ function CommunityExplore() {
           <UserList />
         </Grid>
         <Grid item xs={12} md={7}>
-          {/* Add your other content here */}
+          {/* <UserProfilePage /> */}
         </Grid>
       </Grid>
     </Container>

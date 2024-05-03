@@ -38,7 +38,7 @@ function HomePage() {
           workouts, monitor your progress, and discover new exercises tailored
           to your fitness goals.
         </Typography>
-        <animated.div style={{ ...cardAnimation, marginTop: "-100px" }}>
+        <animated.div style={{ ...cardAnimation }}>
           <img src={homePageImg} alt="logo" style={{ width: "90%" }} />
         </animated.div>
       </Container>

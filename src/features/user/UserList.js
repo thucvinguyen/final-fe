@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommunityUsers } from "./userSlice";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  TablePagination,
-  Typography,
-} from "@mui/material";
+import { Card, Grid, TablePagination, Typography } from "@mui/material";
 import SearchInput from "../../components/SearchInput";
 import UserCard from "./UserCard";
 

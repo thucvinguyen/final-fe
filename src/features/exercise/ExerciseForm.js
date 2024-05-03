@@ -16,21 +16,21 @@ const exerciseSchema = yup.object().shape({
   name: yup.string().required("Exercise name is required"),
   sets: yup.number().required("Set is required").positive().integer(),
   reps: yup.number().required("Rep is required").positive().integer(),
-  date: yup.date().required("Date is required").nullable(),
+  // date: yup.date().required("Date is required").nullable(),
 });
 
 const defaultValues = {
   name: "",
   sets: "",
   reps: "",
-  date: "",
+  // date: "",
 };
 
 function ExerciseForm() {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.exercise);
 
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
 
   const methods = useForm({
     resolver: yupResolver(exerciseSchema),

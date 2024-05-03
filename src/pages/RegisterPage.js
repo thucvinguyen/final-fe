@@ -29,7 +29,7 @@ const RegisterSchema = Yup.object().shape({
   goal: Yup.string()
     .oneOf(["Lose fat", "Gain muscle", "Maintain health"])
     .required("Goal is required"),
-  gender: Yup.string().oneOf(["Male", "Female"]).required("Goal is required"),
+  gender: Yup.string().oneOf(["Male", "Female"]).required("Gender is required"),
   weight: Yup.number().integer().required("Weight is required"),
   height: Yup.number().integer().required("Height is required"),
 });
@@ -40,7 +40,7 @@ const defaultValues = {
   password: "",
   passwordConfirmation: "",
   goal: "Lose fat",
-  gender: "Other",
+  gender: "Male",
   height: "",
   weight: "",
 };

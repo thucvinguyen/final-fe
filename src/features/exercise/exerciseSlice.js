@@ -71,7 +71,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const createExercise =
-  ({ name, sets, reps, date }) =>
+  ({ name, sets, reps }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -79,7 +79,7 @@ export const createExercise =
         name,
         sets,
         reps,
-        date,
+        // date,
       });
       dispatch(slice.actions.createExerciseSuccess(response.data));
       toast.success("Exercise added successfully.");

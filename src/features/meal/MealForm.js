@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { createMeal } from "./mealSlice";
 import { LoadingButton } from "@mui/lab";
 import { FTextField, FormProvider } from "../../components/form";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const mealSchema = yup.object().shape({
   name: yup.string().required("Meal name is required"),
@@ -63,6 +67,11 @@ function MealForm() {
             type="number"
             sx={{ width: "60%", mt: 2 }}
           />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker label="Date" name="date" />
+            </DemoContainer>
+          </LocalizationProvider>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <LoadingButton
