@@ -11,6 +11,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import FDate from "../../components/form/FDate";
 
 const exerciseSchema = yup.object().shape({
   name: yup.string().required("Exercise name is required"),
@@ -78,11 +79,12 @@ function ExerciseForm() {
             type="number"
             sx={{ width: "60%", mt: 2, mb: 2 }}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <FDate name="date" />
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DatePicker label="Date" name="date" />
             </DemoContainer>
-          </LocalizationProvider>
+          </LocalizationProvider> */}
           {/* <Controller
             name="date"
             control={control}

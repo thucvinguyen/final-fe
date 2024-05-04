@@ -156,19 +156,25 @@ function UserProfilePage() {
                             >
                               Exercises
                             </Typography>
-                            {selectedUser.exercise.map((exercise, index) => (
-                              <div key={index} sx={{ marginBottom: 1 }}>
-                                <Card sx={{ margin: 2 }}>
-                                  <Typography sx={{ ml: 2 }}>
-                                    Name: {exercise.name}
-                                  </Typography>
-                                  <Typography sx={{ ml: 2 }}>
-                                    Expenditure: {exercise.caloriesBurned}{" "}
-                                    calories
-                                  </Typography>
-                                </Card>
-                              </div>
-                            ))}
+                            {selectedUser.exercise.length === 0 ? (
+                              <Typography sx={{ textAlign: "center" }}>
+                                Nothing to show yet
+                              </Typography>
+                            ) : (
+                              selectedUser.exercise.map((exercise, index) => (
+                                <div key={index} sx={{ marginBottom: 1 }}>
+                                  <Card sx={{ margin: 2 }}>
+                                    <Typography sx={{ ml: 2 }}>
+                                      Name: {exercise.name}
+                                    </Typography>
+                                    <Typography sx={{ ml: 2 }}>
+                                      Expenditure: {exercise.caloriesBurned}{" "}
+                                      calories
+                                    </Typography>
+                                  </Card>
+                                </div>
+                              ))
+                            )}
                           </Grid>
                           <Grid item xs={12} md={6}>
                             <Typography
@@ -181,18 +187,24 @@ function UserProfilePage() {
                             >
                               Meals
                             </Typography>
-                            {selectedUser.meal.map((meal, index) => (
-                              <div key={index} sx={{ marginBottom: 1 }}>
-                                <Card sx={{ margin: 2 }}>
-                                  <Typography sx={{ ml: 2 }}>
-                                    Name: {meal.name}
-                                  </Typography>
-                                  <Typography sx={{ ml: 2 }}>
-                                    Intake: {meal.calories} calories
-                                  </Typography>
-                                </Card>
-                              </div>
-                            ))}
+                            {selectedUser.meal.length === 0 ? (
+                              <Typography sx={{ textAlign: "center" }}>
+                                Nothing to show yet
+                              </Typography>
+                            ) : (
+                              selectedUser.meal.map((meal, index) => (
+                                <div key={index} sx={{ marginBottom: 1 }}>
+                                  <Card sx={{ margin: 2 }}>
+                                    <Typography sx={{ ml: 2 }}>
+                                      Name: {meal.name}
+                                    </Typography>
+                                    <Typography sx={{ ml: 2 }}>
+                                      Intake: {meal.calories} calories
+                                    </Typography>
+                                  </Card>
+                                </div>
+                              ))
+                            )}
                           </Grid>
                         </Grid>
                       </CardContent>
