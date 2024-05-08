@@ -54,14 +54,3 @@ export const getWorkouts =
       toast.error(error.message);
     }
   };
-
-// export const searchWorkoutsByName = (name) => async (dispatch) => {
-//   dispatch(slice.actions.startLoading());
-//   try {
-//     const response = await apiService.get(`/workouts/${name}`);
-//     dispatch(slice.actions.getWorkoutsSuccess(response.data));
-//   } catch (error) {
-//     dispatch(slice.actions.hasError(error.message));
-//     toast.error(error.message);
-//   }
-// };
