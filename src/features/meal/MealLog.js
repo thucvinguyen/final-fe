@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, IconButton, Paper, Typography } from "@mui/material";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-
+import dayjs from "dayjs";
 import useAuth from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteMeal, getMeals } from "./mealSlice";
@@ -73,7 +73,7 @@ function MealLog() {
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="body1">Exercise Name: {meal.name}</Typography>
+            <Typography variant="body1">Meal Name: {meal.name}</Typography>
             <Box>
               <IconButton onClick={() => handleEditMeal(meal._id)}>
                 <ModeEditIcon />
@@ -85,6 +85,9 @@ function MealLog() {
           </Box>
           <Typography variant="body1">
             Total Calories Consumed: {meal.calories}
+          </Typography>
+          <Typography variant="body1">
+            Date: {dayjs(meal.date).format("MM/DD/YYYY")}
           </Typography>
         </Paper>
       ))}

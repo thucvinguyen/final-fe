@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import Modal from "../../components/form/Modal";
 import { LoadingButton } from "@mui/lab";
 import ExerciseEdit from "./ExerciseEdit";
+import dayjs from "dayjs";
 
 function ExerciseLog() {
   const auth = useAuth();
@@ -93,7 +94,9 @@ function ExerciseLog() {
           <Typography variant="body1">
             Calories Burned: {exercise.caloriesBurned}
           </Typography>
-          {/* <Typography variant="body1">Date: {exercise.date}</Typography> */}
+          <Typography variant="body1">
+            Date: {dayjs(exercise.date).format("MM/DD/YYYY")}
+          </Typography>
         </Paper>
       ))}
       <Box sx={{ display: "flex", justifyContent: "center" }}>

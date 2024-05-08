@@ -7,19 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { createMeal } from "./mealSlice";
 import { LoadingButton } from "@mui/lab";
 import { FTextField, FormProvider } from "../../components/form";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
+import FDate from "../../components/form/FDate";
 
 const mealSchema = yup.object().shape({
   name: yup.string().required("Meal name is required"),
   calories: yup.number().required("Calories is required").positive().integer(),
+  date: yup.date().required("Date is required"),
 });
 
 const defaultValues = {
   name: "",
   calories: "",
+  date: dayjs(),
 };
 
 function MealForm() {
@@ -65,13 +65,9 @@ function MealForm() {
             name="calories"
             label="Calories"
             type="number"
-            sx={{ width: "60%", mt: 2 }}
+            sx={{ width: "60%", mt: 2, mb: 2 }}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DatePicker"]}>
-              <DatePicker label="Date" name="date" />
-            </DemoContainer>
-          </LocalizationProvider>
+          <FDate name="date" />
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <LoadingButton

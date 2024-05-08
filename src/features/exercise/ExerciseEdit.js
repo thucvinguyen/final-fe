@@ -7,11 +7,14 @@ import * as yup from "yup";
 import { FTextField, FormProvider } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { editExercise } from "./exerciseSlice";
+import FDate from "../../components/form/FDate";
+import dayjs from "dayjs";
 
 const exerciseSchema = yup.object().shape({
   name: yup.string().required("Exercise name is required"),
   sets: yup.number().required("Set is required").positive().integer(),
   reps: yup.number().required("Rep is required").positive().integer(),
+  date: yup.string().required("Exercise date is required"),
 });
 
 function ExerciseEdit({ exercise, handleCloseModal, setEditMode }) {
@@ -20,9 +23,10 @@ function ExerciseEdit({ exercise, handleCloseModal, setEditMode }) {
   const methods = useForm({
     resolver: yupResolver(exerciseSchema),
     defaultValues: {
-      name: `${exercise.name}`,
-      sets: `${exercise.sets}`,
-      reps: `${exercise.reps}`,
+      name: exercise.name,
+      sets: exercise.sets,
+      reps: exercise.reps,
+      date: dayjs(exercise.date),
     },
   });
   const {
@@ -68,6 +72,11 @@ function ExerciseEdit({ exercise, handleCloseModal, setEditMode }) {
             label="Rep"
             type="number"
             defaultValue={exercise.reps}
+            sx={{ width: "60%", mt: 2 }}
+          />
+          <FDate
+            name="date"
+            defaultValue={exercise.date}
             sx={{ width: "60%", mt: 2 }}
           />
         </Box>

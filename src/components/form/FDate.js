@@ -12,13 +12,16 @@ function FDate({ name }) {
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DatePicker"]}>
-            <DatePicker {...field} label="Date" />
-          </DemoContainer>
-        </LocalizationProvider>
-      )}
+      render={({ field }) => {
+        // console.log(field);
+        return (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker {...field} label="Date" />
+            </DemoContainer>
+          </LocalizationProvider>
+        );
+      }}
     />
   );
 }

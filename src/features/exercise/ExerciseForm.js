@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller, useForm, useFormContext } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,31 +7,26 @@ import * as yup from "yup";
 import { FTextField, FormProvider } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { createExercise } from "./exerciseSlice";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import FDate from "../../components/form/FDate";
+import dayjs from "dayjs";
 
 const exerciseSchema = yup.object().shape({
   name: yup.string().required("Exercise name is required"),
   sets: yup.number().required("Set is required").positive().integer(),
   reps: yup.number().required("Rep is required").positive().integer(),
-  // date: yup.date().required("Date is required").nullable(),
+  date: yup.date().required("Date is required"),
 });
 
 const defaultValues = {
   name: "",
   sets: "",
   reps: "",
-  // date: "",
+  date: dayjs(),
 };
 
 function ExerciseForm() {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.exercise);
-
-  // const { control } = useFormContext();
 
   const methods = useForm({
     resolver: yupResolver(exerciseSchema),
@@ -80,22 +75,6 @@ function ExerciseForm() {
             sx={{ width: "60%", mt: 2, mb: 2 }}
           />
           <FDate name="date" />
-          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DatePicker"]}>
-              <DatePicker label="Date" name="date" />
-            </DemoContainer>
-          </LocalizationProvider> */}
-          {/* <Controller
-            name="date"
-            control={control}
-            render={({ field }) => (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker"]}>
-                  <DatePicker {...field} label="Date" />
-                </DemoContainer>
-              </LocalizationProvider>
-            )}
-          /> */}
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <LoadingButton

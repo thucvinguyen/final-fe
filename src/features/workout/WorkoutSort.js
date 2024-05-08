@@ -20,13 +20,8 @@ function WorkoutSort() {
     equipment: "",
     level: "",
   });
-  const [searchQuery, setSearchQuery] = useState("");
 
   const { workouts } = useSelector((state) => state.workout);
-
-  // const { workouts, currentPage, totalPages } = useSelector(
-  //   (state) => state.workout
-  // );
 
   useEffect(() => {
     const partParam = params.get("part");
@@ -53,23 +48,6 @@ function WorkoutSort() {
         level: levelParam,
       }));
     }
-
-    // if (nameParam) {
-    //   setSortOptions((prevOptions) => ({
-    //     ...prevOptions,
-    //     name: nameParam,
-    //   }));
-    // }
-
-    // dispatch(
-    //   getWorkouts({
-    //     page: pageParam,
-    //     limit: 9,
-    //     part: partParam,
-    //     equipment: equipmentParam,
-    //     level: levelParam,
-    //   })
-    // );
   }, []);
 
   // save value in the filter field

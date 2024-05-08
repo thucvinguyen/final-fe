@@ -30,26 +30,6 @@ function ExerciseLibrary() {
     }
   }, []);
 
-  // const handlePageChange = (event, newPage) => {
-  //   console.log("page changed");
-  //   setParams({ page: newPage });
-
-  //   if (nameParam) {
-  //     setParams({ name: nameParam, page: newPage });
-  //   }
-  //   if (partParam) {
-  //     setParams({ part: partParam, page: newPage });
-  //   }
-  //   if (equipmentParam) {
-  //     setParams({ equipment: equipmentParam, page: newPage });
-  //   }
-  //   if (levelParam) {
-  //     setParams({ level: levelParam, page: newPage });
-  //   }
-  //   if (!nameParam) {
-  //     dispatch(getWorkouts({ page: newPage, limit: workoutsPerPage }));
-  //   }
-  // };
   const handlePageChange = (event, newPage) => {
     const updatedParams = {};
 

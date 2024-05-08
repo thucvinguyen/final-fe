@@ -68,11 +68,15 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const createMeal =
-  ({ name, calories }) =>
+  ({ name, calories, date }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await apiService.post("/meals", { name, calories });
+      const response = await apiService.post("/meals", {
+        name,
+        calories,
+        date,
+      });
       dispatch(slice.actions.createMealSuccess(response.data));
       toast.success("Meal Added Successfully.");
     } catch (error) {
@@ -82,11 +86,11 @@ export const createMeal =
   };
 
 export const getMeals =
-  ({ userId, page = 1, limit = MEALS_PER_PAGE }) =>
+  ({ userId, page = 1 }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const params = { page, limit };
+      const params = { page };
       const response = await apiService.get(`/meals/${userId}`, {
         params,
       });
@@ -115,10 +119,12 @@ export const editMeal = (id, data) => async (dispatch) => {
   try {
     const name = data.name;
     const calories = data.calories;
+    const date = data.date;
 
     const response = await apiService.put(`/meals/${id}`, {
       name,
       calories,
+      date,
     });
     dispatch(
       slice.actions.editMealSuccess({

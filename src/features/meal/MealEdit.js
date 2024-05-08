@@ -7,10 +7,13 @@ import * as yup from "yup";
 import { FTextField, FormProvider } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { editMeal } from "./mealSlice";
+import dayjs from "dayjs";
+import FDate from "../../components/form/FDate";
 
 const exerciseSchema = yup.object().shape({
   name: yup.string().required("Exercise name is required"),
   calories: yup.number().required("Calories is required").positive().integer(),
+  date: yup.string().required("Exercise date is required"),
 });
 
 function MealEdit({ meal, handleCloseModal, setEditMode }) {
@@ -19,8 +22,9 @@ function MealEdit({ meal, handleCloseModal, setEditMode }) {
   const methods = useForm({
     resolver: yupResolver(exerciseSchema),
     defaultValues: {
-      name: `${meal.name}`,
-      calories: `${meal.calories}`,
+      name: meal.name,
+      calories: meal.calories,
+      date: dayjs(meal.date),
     },
   });
   const {
@@ -59,6 +63,11 @@ function MealEdit({ meal, handleCloseModal, setEditMode }) {
             label="Calories"
             type="number"
             defaultValue={meal.calories}
+            sx={{ width: "60%", mt: 2 }}
+          />
+          <FDate
+            name="date"
+            defaultValue={meal.date}
             sx={{ width: "60%", mt: 2 }}
           />
         </Box>

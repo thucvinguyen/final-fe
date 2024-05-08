@@ -71,7 +71,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const createExercise =
-  ({ name, sets, reps }) =>
+  ({ name, sets, reps, date }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -79,7 +79,7 @@ export const createExercise =
         name,
         sets,
         reps,
-        // date,
+        date,
       });
       dispatch(slice.actions.createExerciseSuccess(response.data));
       toast.success("Exercise added successfully.");
@@ -124,11 +124,13 @@ export const editExercise = (id, data) => async (dispatch) => {
     const name = data.name;
     const sets = data.sets;
     const reps = data.reps;
+    const date = data.date;
 
     const response = await apiService.put(`/exercises/${id}`, {
       name,
       sets,
       reps,
+      date,
     });
     dispatch(
       slice.actions.editExerciseSuccess({

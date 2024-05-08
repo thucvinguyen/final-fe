@@ -9,7 +9,6 @@ import NotFoundPage from "../pages/NotFoundPage";
 import AuthRequire from "./AuthRequire";
 import AccountPage from "../pages/AccountPage";
 import UserProfilePage from "../pages/UserProfilePage";
-import ProfilePage from "../pages/ProfilePage";
 import ExcerciseLibrary from "../pages/features/ExcerciseLibrary";
 import FitnessTracker from "../pages/features/FitnessTracker";
 import CalorieDashboard from "../pages/features/CalorieDashboard";
