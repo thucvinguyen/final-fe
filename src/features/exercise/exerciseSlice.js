@@ -90,11 +90,11 @@ export const createExercise =
   };
 
 export const getExercises =
-  ({ userId, page = 1, limit = EXERCISES_PER_PAGE }) =>
+  ({ userId, page = 1 }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const params = { page, limit };
+      const params = { page };
       const response = await apiService.get(`/exercises/${userId}`, {
         params,
       });

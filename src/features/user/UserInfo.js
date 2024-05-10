@@ -31,7 +31,8 @@ function UserInfo({ selectedUser }) {
           </Grid>
           <Grid item xs={12} sm={8}>
             <Typography sx={{ marginBottom: 1 }}>
-              Email: {selectedUser.email}
+              Email:{" "}
+              <a href={`mailto:${selectedUser.email}`}>{selectedUser.email}</a>
             </Typography>
             <Typography sx={{ marginBottom: 1 }}>
               Gender: {selectedUser.gender}

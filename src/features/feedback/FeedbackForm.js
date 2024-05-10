@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { createFeedback } from "./feedbackSlice";
 import { FTextField, FormProvider } from "../../components/form";
-import { Box, Grid, Rating, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import Rating from "./Rating";
 
 const feedbackSchema = yup.object().shape({
   // rating: yup
@@ -44,6 +45,7 @@ function FeedbackForm() {
     dispatch(createFeedback(data)).then(() => reset());
     setSubmitted(true);
   };
+
   return (
     <Box
       display="flex"
@@ -65,7 +67,7 @@ function FeedbackForm() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Box display="flex" justifyContent="center">
-                  <Rating name="rating" />
+                  <Rating />
                 </Box>
               </Grid>
               <Grid item xs={12}>

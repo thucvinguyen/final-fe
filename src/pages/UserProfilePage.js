@@ -20,18 +20,6 @@ function UserProfilePage() {
     }
   }, []);
 
-  const infoAnimation = useSpring({
-    from: { transform: "translateX(-100%)" },
-    to: { transform: "translateX(0)" },
-    config: { duration: 500 },
-  });
-
-  // const fitnessAnimation = useSpring({
-  //   from: { transform: "translateX(100%)" },
-  //   to: { transform: "translateX(0)" },
-  //   config: { duration: 500 },
-  // });
-
   return (
     <>
       {isLoading ? (
@@ -55,9 +43,7 @@ function UserProfilePage() {
               justifyContent: "center",
             }}
           >
-            <animated.div style={infoAnimation}>
-              {selectedUser && <UserInfo selectedUser={selectedUser} />}
-            </animated.div>
+            {selectedUser && <UserInfo selectedUser={selectedUser} />}
           </Box>
           <Box
             sx={{
