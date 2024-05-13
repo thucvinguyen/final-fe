@@ -43,7 +43,7 @@ function WorkoutCard({ workout }) {
         <Divider />
         <Typography
           variant="h5"
-          sx={{ display: "flex", justifyContent: "center" }}
+          sx={{ display: "flex", justifyContent: "center", mt: 2 }}
         >
           {workout.name}
         </Typography>
