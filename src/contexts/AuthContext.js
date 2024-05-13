@@ -2,6 +2,7 @@ import { createContext, useReducer, useEffect } from "react";
 import { useSelector } from "react-redux";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
+// import { signUpWithGoogle } from "../firebase/firebaseConfig";
 
 const initialState = {
   isInitialized: false,
@@ -165,6 +166,14 @@ function AuthProvider({ children }) {
     callback();
   };
 
+  // const signUpWithGoogleHandler = async (navigate) => {
+  //   try {
+  //     await signUpWithGoogle(navigate);
+  //   } catch (error) {
+  //     console.error("Error signing up with Google:", error);
+  //   }
+  // };
+
   return (
     <AuthContext.Provider
       value={{
@@ -172,6 +181,7 @@ function AuthProvider({ children }) {
         login,
         register,
         logout,
+        // signUpWithGoogle: signUpWithGoogleHandler,
       }}
     >
       {children}

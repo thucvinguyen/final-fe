@@ -7,25 +7,26 @@ import { createFeedback } from "./feedbackSlice";
 import { FTextField, FormProvider } from "../../components/form";
 import { Box, Grid, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import Rating from "./Rating";
+import CustomRating from "./Rating";
 
 const feedbackSchema = yup.object().shape({
-  // rating: yup
-  //   .number()
-  //   .required("Rating is required")
-  //   .min(0, "Rating must be at least 0")
-  //   .max(5, "Rating must be at most 5")
-  //   .integer("Rating must be a whole number"),
+  rating: yup
+    .number()
+    .required("Rating is required")
+    .min(0, "Rating must be at least 0")
+    .max(5, "Rating must be at most 5")
+    .integer("Rating must be a whole number"),
   message: yup.string().required("Message is required"),
 });
 
 const defaultValues = {
-  // rating: "",
+  rating: 5,
   message: "",
 };
 
 function FeedbackForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [rating, setRating] = useState(5); // State to hold rating value
 
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.feedback);
@@ -38,12 +39,17 @@ function FeedbackForm() {
     handleSubmit,
     reset,
     formState: { isSubmitting },
+    setValue,
   } = methods;
 
   const onSubmit = (data) => {
     console.log("data", data);
     dispatch(createFeedback(data)).then(() => reset());
     setSubmitted(true);
+  };
+
+  const handleRatingChange = (value) => {
+    setValue("rating", value);
   };
 
   return (
@@ -67,7 +73,7 @@ function FeedbackForm() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Box display="flex" justifyContent="center">
-                  <Rating />
+                  <CustomRating onRatingChange={handleRatingChange} />
                 </Box>
               </Grid>
               <Grid item xs={12}>
