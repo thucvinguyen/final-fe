@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Box, Grid, Pagination, Typography } from "@mui/material";
-import WorkoutList from "../../features/workout/WorkoutList";
 import WorkoutSearch from "../../features/workout/WorkoutSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { getWorkouts } from "../../features/workout/workoutSlice";
 import { useSpring, animated } from "react-spring";
 import { useSearchParams } from "react-router-dom";
-import WorkoutSort from "../../features/workout/WorkoutSort";
+import WorkoutFilter from "../../features/workout/WorkoutFilter";
+import WorkoutCard from "../../features/workout/WorkoutCard";
 
 function ExerciseLibrary() {
   const dispatch = useDispatch();
@@ -24,7 +24,6 @@ function ExerciseLibrary() {
   const levelParam = params.get("level");
 
   useEffect(() => {
-    // console.log("useeffect", nameParam);
     if (!nameParam) {
       dispatch(getWorkouts({ page: currentPage, limit: workoutsPerPage }));
     }
@@ -76,7 +75,7 @@ function ExerciseLibrary() {
             padding: 2,
           }}
         >
-          <WorkoutSort />
+          <WorkoutFilter />
         </Box>
         <Pagination
           count={totalPages}
@@ -95,7 +94,11 @@ function ExerciseLibrary() {
           <Grid container spacing={3} justifyContent="center" sx={{ mt: 2 }}>
             {workouts &&
               workouts.map((workout, index) => (
-                <WorkoutList key={index} workout={workout} />
+                <WorkoutCard
+                  key={index}
+                  workout={workout}
+                  workoutName={workout.name} // Pass the workout name dynamically
+                />
               ))}
           </Grid>
         </animated.div>

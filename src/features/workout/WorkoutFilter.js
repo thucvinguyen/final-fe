@@ -11,23 +11,26 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import TuneIcon from "@mui/icons-material/Tune";
 
 function WorkoutSort() {
   const [params, setParams] = useSearchParams();
+  const partParam = params.get("part");
+  const equipmentParam = params.get("equipment");
+  const levelParam = params.get("level");
+  const nameParams = params.get("name");
+
   const dispatch = useDispatch();
   const [sortOptions, setSortOptions] = useState({
     part: "",
     equipment: "",
     level: "",
+    name: nameParams || "",
   });
 
   const { workouts } = useSelector((state) => state.workout);
 
   useEffect(() => {
-    const partParam = params.get("part");
-    const equipmentParam = params.get("equipment");
-    const levelParam = params.get("level");
-
     if (partParam) {
       setSortOptions((prevOptions) => ({
         ...prevOptions,
@@ -48,11 +51,20 @@ function WorkoutSort() {
         level: levelParam,
       }));
     }
+
+    if (nameParams) {
+      setSortOptions((prevOptions) => ({
+        ...prevOptions,
+        name: nameParams,
+      }));
+    }
   }, []);
 
   // save value in the filter field
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(value);
+    console.log("name", name);
     setSortOptions((prevOptions) => ({
       ...prevOptions,
       [name]: value,
@@ -63,8 +75,8 @@ function WorkoutSort() {
     e.preventDefault();
 
     const sortParams = {};
-    if (sortOptions.name) {
-      sortParams.name = sortOptions.name;
+    if (nameParams) {
+      sortParams.name = nameParams;
     }
     if (sortOptions.part) {
       sortParams.part = sortOptions.part;
@@ -75,12 +87,28 @@ function WorkoutSort() {
     if (sortOptions.level) {
       sortParams.level = sortOptions.level;
     }
+    console.log("sortParams", sortParams);
 
     if (Object.keys(sortParams).length > 0) {
       console.log("sort param");
       setParams(sortParams);
       dispatch(getWorkouts({ page: 1, limit: 9, ...sortParams }));
     }
+  };
+
+  const handleClear = () => {
+    // Resetting filter parameters
+    setSortOptions({
+      part: "",
+      equipment: "",
+      level: "",
+    });
+
+    // Clearing URL parameters
+    const clearParams = {};
+    setParams(clearParams);
+
+    dispatch(getWorkouts({ page: 1, limit: 9, ...clearParams }));
   };
 
   return (
@@ -146,9 +174,16 @@ function WorkoutSort() {
           </FormControl>
         </Grid>
       </Grid>
-      <Grid sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
-        <Button variant="contained" onClick={handleSubmit}>
-          Sort
+      <Grid sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{ "& .MuiSvgIcon-root": { marginRight: "0.5rem" } }}
+        >
+          <TuneIcon /> Apply Filter
+        </Button>
+        <Button variant="contained" onClick={handleClear}>
+          Clear Filter
         </Button>
       </Grid>
 

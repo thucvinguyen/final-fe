@@ -111,6 +111,10 @@ function MealLog() {
         open={showModal}
         onClose={handleCloseDeleteModal}
         onConfirm={handleDeleteMeal}
+        title="Confirm Deletion"
+        content="Are you sure you want to delete?"
+        cancel="Cancel"
+        confirm="Confirm"
       />
     </div>
   );

@@ -13,28 +13,6 @@ function WorkoutSearch() {
   const equipmentParam = params.get("equipment");
   const levelParam = params.get("level");
 
-  // useEffect(() => {
-  //   console.log("useeffect name param");
-  //   const nameParam = params.get("name");
-  //   const pageParam = params.get("page");
-
-  //   if (nameParam) {
-  //     setSearchQuery(nameParam);
-  //     dispatch(getWorkouts({ page: pageParam, limit: 9, name: nameParam }));
-  //   }
-  // }, []);
-
-  // const handleSubmit = (e) => {
-  //   console.log("submit name param");
-  //   e.preventDefault();
-  //   if (searchQuery.trim() !== "") {
-  //     setParams({ name: searchQuery });
-  //     dispatch(getWorkouts({ page: 1, limit: 9, name: searchQuery }));
-  //   } else {
-  //     setParams({}); // Clear the search parameter from the URL
-  //     dispatch(getWorkouts({ page: 1, limit: 9 }));
-  //   }
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedParams = { ...params };
@@ -50,6 +28,7 @@ function WorkoutSearch() {
     setParams(updatedParams); // Update the URL parameters
 
     dispatch(getWorkouts({ page: 1, limit: 9, ...updatedParams }));
+    console.log(updatedParams);
   };
 
   return (

@@ -120,6 +120,10 @@ function ExerciseLog() {
         open={showModal}
         onClose={handleCloseDeleteModal}
         onConfirm={handleDeleteExercise}
+        title="Confirm Deletion"
+        content="Are you sure you want to delete?"
+        cancel="Cancel"
+        confirm="Confirm"
       />
     </div>
   );

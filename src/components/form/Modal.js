@@ -8,7 +8,15 @@ import {
   Slide,
 } from "@mui/material";
 
-const Modal = ({ open, onClose, onConfirm }) => {
+const Modal = ({
+  open,
+  onClose,
+  onConfirm,
+  title,
+  content,
+  cancel,
+  confirm,
+}) => {
   return (
     <Dialog
       open={open}
@@ -18,14 +26,14 @@ const Modal = ({ open, onClose, onConfirm }) => {
         direction: "down",
       }}
     >
-      <DialogTitle>Confirm Deletion</DialogTitle>
-      <DialogContent>Are you sure you want to delete?</DialogContent>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>{content}</DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Cancel
+          {cancel}
         </Button>
         <Button onClick={onConfirm} color="primary">
-          Confirm
+          {confirm}
         </Button>
       </DialogActions>
     </Dialog>
