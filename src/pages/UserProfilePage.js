@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../features/user/userSlice";
 import LoadingScreen from "../components/LoadingScreen";
-import { animated, useSpring } from "react-spring";
 import UserInfo from "../features/user/UserInfo";
 import UserChart from "../features/user/UserChart";
 

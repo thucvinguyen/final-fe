@@ -1,27 +1,19 @@
-import React, { useState } from "react";
-import {
-  Typography,
-  Box,
-  Rating,
-  Button,
-  TextField,
-  Container,
-  Grid,
-} from "@mui/material";
+import React from "react";
+import { Typography, Container, Grid } from "@mui/material";
 import supportImg from "../images/support_img.png";
 import FeedbackForm from "../features/feedback/FeedbackForm";
 
 function Support() {
-  const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState("");
+  // const [rating, setRating] = useState(0);
+  // const [message, setMessage] = useState("");
 
-  const handleRatingChange = (event, newValue) => {
-    setRating(newValue);
-  };
+  // const handleRatingChange = (event, newValue) => {
+  //   setRating(newValue);
+  // };
 
-  const handleMessageChange = (event) => {
-    setMessage(event.target.value);
-  };
+  // const handleMessageChange = (event) => {
+  //   setMessage(event.target.value);
+  // };
 
   // const handleSubmitRating = () => {
   //   console.log("Submitted rating:", rating);

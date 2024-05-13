@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import apiService from "../../app/apiService";
-import { MEALS_PER_PAGE } from "../../app/config";
+// import { MEALS_PER_PAGE } from "../../app/config";
 
 const initialState = {
   isLoading: false,
