@@ -48,6 +48,10 @@ function FeatureCard({ name, description, image }) {
               color="primary"
               component={Link}
               to={`/features/${name.toLowerCase().replace(/\s+/g, "-")}`}
+              sx={{
+                textTransform: "none",
+                "& .MuiButton-label": { textTransform: "lowercase" },
+              }}
             >
               Get Start
             </HoverButton>

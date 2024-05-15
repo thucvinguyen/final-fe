@@ -29,6 +29,10 @@ function Community() {
           color="primary"
           component={Link}
           to={`/community`}
+          sx={{
+            textTransform: "none",
+            "& .MuiButton-label": { textTransform: "lowercase" },
+          }}
         >
           Explore Now
         </HoverButton>

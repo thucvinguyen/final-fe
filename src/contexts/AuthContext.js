@@ -2,7 +2,7 @@ import { createContext, useReducer, useEffect } from "react";
 import { useSelector } from "react-redux";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
-// import { signUpWithGoogle } from "../firebase/firebaseConfig";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 const initialState = {
   isInitialized: false,
@@ -166,13 +166,50 @@ function AuthProvider({ children }) {
     callback();
   };
 
-  // const signUpWithGoogleHandler = async (navigate) => {
+  // const loginWithGoogle = async (googleToken, callback) => {
   //   try {
-  //     await signUpWithGoogle(navigate);
+  //     const response = await apiService.post("/auth/google-login", {
+  //       token: googleToken,
+  //     });
+  //     const { user, accessToken } = response.data;
+  //     setSession(accessToken);
+  //     dispatch({
+  //       type: LOGIN_SUCCESS,
+  //       payload: { user },
+  //     });
+  //     callback();
   //   } catch (error) {
-  //     console.error("Error signing up with Google:", error);
+  //     console.error("Google login failed", error);
   //   }
   // };
+
+  const loginWithGoogle = async (navigate) => {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const user = result.user;
+        const token = await user.getIdToken();
+
+        // Send the token to the backend
+        const response = await apiService.post("/auth/google-login", {
+          token,
+        });
+        const { user: backendUser, accessToken } = response.data;
+
+        setSession(accessToken);
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: { user: backendUser },
+        });
+
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Google login failed", error);
+      });
+  };
 
   return (
     <AuthContext.Provider
@@ -181,7 +218,7 @@ function AuthProvider({ children }) {
         login,
         register,
         logout,
-        // signUpWithGoogle: signUpWithGoogleHandler,
+        loginWithGoogle,
       }}
     >
       {children}

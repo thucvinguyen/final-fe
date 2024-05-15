@@ -1,3 +1,5 @@
+// src/pages/LoginPage.js
+
 import React, { useState } from "react";
 import {
   Link,
@@ -7,6 +9,8 @@ import {
   InputAdornment,
   Container,
   Grid,
+  Typography,
+  Box,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -20,9 +24,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Timeline from "../components/Timeline";
-import GoogleIcon from "@mui/icons-material/Google";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { signUpWithGoogle } from "../firebase/firebaseConfig";
+import LoginGoogle from "../components/LoginGoogle";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -40,6 +42,7 @@ function LoginPage() {
   const location = useLocation();
   const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  // const { loginWithGoogle, auth } = useAuth();
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
@@ -64,13 +67,6 @@ function LoginPage() {
       reset();
       setError("responseError", error);
     }
-  };
-
-  const handleGoogle = () => {
-    // console.log("gg login");
-    // const provider = new GoogleAuthProvider();
-    // return signInWithPopup(auth, provider);
-    signUpWithGoogle(navigate);
   };
 
   return (
@@ -136,20 +132,18 @@ function LoginPage() {
               type="submit"
               variant="contained"
               loading={isSubmitting}
+              sx={{
+                textTransform: "none",
+                "& .MuiButton-label": { textTransform: "lowercase" },
+              }}
             >
               Login
             </LoadingButton>
           </FormProvider>
-          <LoadingButton
-            fullWidth
-            size="large"
-            type="submit"
-            variant="contained"
-            sx={{ mt: 3 }}
-            onClick={handleGoogle}
-          >
-            Continue with <GoogleIcon />
-          </LoadingButton>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+            <Typography variant="h8">or</Typography>
+          </Box>
+          <LoginGoogle />
         </Grid>
       </Grid>
     </Container>

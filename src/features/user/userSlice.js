@@ -104,6 +104,16 @@ export const getCurrentUserProfile = () => async (dispatch) => {
   }
 };
 
+export const getCurrentUserFull = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get("/users/details");
+    dispatch(slice.actions.updateUserProfileSuccess(response.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error));
+  }
+};
+
 // for community
 export const getCommunityUsers =
   ({ filterName, page = 1, limit = 12 }) =>

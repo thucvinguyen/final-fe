@@ -176,13 +176,24 @@ function WorkoutSort() {
       </Grid>
       <Grid sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
         <Button
+          startIcon={<TuneIcon />}
           variant="contained"
           onClick={handleSubmit}
-          sx={{ "& .MuiSvgIcon-root": { marginRight: "0.5rem" } }}
+          sx={{
+            textTransform: "none",
+            "& .MuiButton-label": { textTransform: "lowercase" },
+          }}
         >
-          <TuneIcon /> Apply Filter
+          Apply Filter
         </Button>
-        <Button variant="contained" onClick={handleClear}>
+        <Button
+          variant="contained"
+          onClick={handleClear}
+          sx={{
+            textTransform: "none",
+            "& .MuiButton-label": { textTransform: "lowercase" },
+          }}
+        >
           Clear Filter
         </Button>
       </Grid>

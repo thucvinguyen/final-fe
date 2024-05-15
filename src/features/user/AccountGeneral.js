@@ -147,6 +147,10 @@ function AccountGeneral() {
                 type="submit"
                 variant="contained"
                 loading={isSubmitting || isLoading}
+                sx={{
+                  textTransform: "none",
+                  "& .MuiButton-label": { textTransform: "lowercase" },
+                }}
               >
                 Save Changes
               </LoadingButton>

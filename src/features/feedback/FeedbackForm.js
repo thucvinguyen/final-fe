@@ -26,7 +26,7 @@ const defaultValues = {
 
 function FeedbackForm() {
   const [submitted, setSubmitted] = useState(false);
-  const [rating, setRating] = useState(5); // State to hold rating value
+  // const [rating, setRating] = useState(5); // State to hold rating value
 
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.feedback);
@@ -92,6 +92,10 @@ function FeedbackForm() {
                     variant="contained"
                     loading={isSubmitting || isLoading}
                     color="primary"
+                    sx={{
+                      textTransform: "none",
+                      "& .MuiButton-label": { textTransform: "lowercase" },
+                    }}
                   >
                     Submit
                   </LoadingButton>

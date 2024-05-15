@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import {
   Box,
@@ -10,14 +10,40 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUserFull } from "../features/user/userSlice";
 
-function CalorieChart() {
-  const { user } = useAuth();
-  const { exercise, meal } = user;
+function CalorieChart({ user }) {
   const [selectedMonth, setSelectedMonth] = useState(0);
   const [selectedYear, setSelectedYear] = useState(dayjs().year());
+  // const dispatch = useDispatch();
+
+  // const { user, isLoading, error } = useSelector((state) => ({
+  //   user: state.user.updatedProfile,
+  //   isLoading: state.user.isLoading,
+  //   error: state.user.error,
+  // }));
+
+  // useEffect(() => {
+  //   dispatch(getCurrentUserFull());
+  // }, [dispatch]);
+
+  // if (isLoading) {
+  //   return <Typography>Loading...</Typography>;
+  // }
+
+  // if (error) {
+  //   return <Typography>Error: {error}</Typography>;
+  // }
+
+  // if (!user) {
+  //   return null;
+  // }
+
+  const { exercise, meal } = user;
 
   // Aggregate calories by date for exercise
   const exerciseCalorieData = exercise.reduce((acc, item) => {
@@ -131,3 +157,16 @@ function CalorieChart() {
 }
 
 export default CalorieChart;
+
+// import React from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
+// function CalorieChart() {
+//   const dispatch = useDispatch();
+
+//   const { user } = useSelector((state) => state.workout);
+
+//   return <div>CalorieChart</div>;
+// }
+
+// export default CalorieChart;
