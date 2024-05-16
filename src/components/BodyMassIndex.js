@@ -10,6 +10,9 @@ function BodyMassIndex({ user }) {
   const { weight, height, gender } = user;
 
   const calculateBMI = () => {
+    if (weight === 0 || height === 0) {
+      return "No BMI yet";
+    }
     const heightInMeters = height / 100;
     const bmi = weight / (heightInMeters * heightInMeters);
     return bmi.toFixed(1);
@@ -17,6 +20,10 @@ function BodyMassIndex({ user }) {
   const bmi = calculateBMI();
 
   const getBMIStatus = (bmi) => {
+    if (bmi === "No BMI yet") {
+      return "No information provided to indicate your BMI";
+    }
+    // bmi = parseFloat(bmi);
     if (bmi < 18.5) {
       return "You're currently underweight. Note: BMI can give you an indication as to whether you’re at a healthy weight for your height, it’s far from perfect. BMI calculations and charts don’t adjust for your gender, age, race, ethnicity and other factors, which can impact your body fat and muscle—and therefore skew your BMI higher or lower. ";
     } else if (bmi >= 18.5 && bmi <= 24.9) {
@@ -94,7 +101,7 @@ function BodyMassIndex({ user }) {
                 sx={{ display: "flex", justifyContent: "center" }}
                 variant="body1"
               >
-                {gender}
+                {gender ? gender : "No gender chosen yet"}
               </Typography>
             </CardContent>
           </Card>

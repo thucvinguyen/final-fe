@@ -1,15 +1,16 @@
 import React from "react";
-import { Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import AccountGeneral from "../features/user/AccountGeneral";
 
 function AccountPage() {
   return (
-    <Container>
-      <Typography variant="h5" gutterBottom>
-        My Account
+    <Box sx={{ padding: 2 }}>
+      <Typography variant="h4" sx={{ marginBottom: 2, textAlign: "center" }}>
+        Account Settings
       </Typography>
+
       <AccountGeneral />
-    </Container>
+    </Box>
   );
 }
 

@@ -74,8 +74,13 @@ function AccountGeneral() {
     [setValue]
   );
 
-  const onSubmit = (data) => {
-    dispatch(updateUserProfile({ userId: user._id, ...data }));
+  const onSubmit = async (data) => {
+    try {
+      await dispatch(updateUserProfile({ userId: user._id, ...data }));
+      window.location.reload(); // Refresh the page on successful update
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    }
   };
 
   return (

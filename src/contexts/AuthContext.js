@@ -166,23 +166,6 @@ function AuthProvider({ children }) {
     callback();
   };
 
-  // const loginWithGoogle = async (googleToken, callback) => {
-  //   try {
-  //     const response = await apiService.post("/auth/google-login", {
-  //       token: googleToken,
-  //     });
-  //     const { user, accessToken } = response.data;
-  //     setSession(accessToken);
-  //     dispatch({
-  //       type: LOGIN_SUCCESS,
-  //       payload: { user },
-  //     });
-  //     callback();
-  //   } catch (error) {
-  //     console.error("Google login failed", error);
-  //   }
-  // };
-
   const loginWithGoogle = async (navigate) => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();

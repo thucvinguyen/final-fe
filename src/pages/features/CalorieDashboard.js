@@ -9,12 +9,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 function CalorieDashboard() {
   const dispatch = useDispatch();
 
-  // const { user, isLoading, error } = useSelector((state) => ({
-  //   user: state.user.updatedProfile,
-  //   isLoading: state.user.isLoading,
-  //   error: state.user.error,
-  // }));
-
   const { updatedProfile, isLoading, error } = useSelector(
     (state) => state.user
   );
