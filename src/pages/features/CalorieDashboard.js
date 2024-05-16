@@ -1,29 +1,63 @@
 import React, { useEffect } from "react";
 import BodyMassIndex from "../../components/BodyMassIndex";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CalorieChart from "../../components/CalorieChart";
 import { getCurrentUserFull } from "../../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import LoadingScreen from "../../components/LoadingScreen";
 
 function CalorieDashboard() {
   const dispatch = useDispatch();
 
-  const { user, isLoading, error } = useSelector((state) => ({
-    user: state.user.updatedProfile,
-    isLoading: state.user.isLoading,
-    error: state.user.error,
-  }));
+  // const { user, isLoading, error } = useSelector((state) => ({
+  //   user: state.user.updatedProfile,
+  //   isLoading: state.user.isLoading,
+  //   error: state.user.error,
+  // }));
+
+  const { updatedProfile, isLoading, error } = useSelector(
+    (state) => state.user
+  );
 
   useEffect(() => {
     dispatch(getCurrentUserFull());
   }, [dispatch]);
 
-  if (!user) {
-    return null;
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <LoadingScreen />
+      </Box>
+    );
   }
 
-  // const { weight, height, gender, exercise, meal } = user;
+  if (error) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Typography variant="h6" color="error">
+          {error.message || "Something went wrong. Please try again later."}
+        </Typography>
+      </Box>
+    );
+  }
+
+  if (!updatedProfile) {
+    return null;
+  }
 
   return (
     <>
@@ -35,12 +69,12 @@ function CalorieDashboard() {
         }}
       >
         <Box sx={{ width: "80%" }}>
-          <BodyMassIndex user={user} />
+          <BodyMassIndex user={updatedProfile} />
         </Box>
       </Box>
 
       <Box sx={{ mt: 4, mb: 4 }}>
-        <CalorieChart user={user} />
+        <CalorieChart user={updatedProfile} />
       </Box>
     </>
   );

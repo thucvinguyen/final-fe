@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommunityUsers } from "./userSlice";
-import { Card, Grid, TablePagination, Typography } from "@mui/material";
+import {
+  Card,
+  Grid,
+  TablePagination,
+  Typography,
+  CircularProgress,
+  Box,
+} from "@mui/material";
 import SearchInput from "../../components/SearchInput";
 import UserCard from "./UserCard";
+import LoadingScreen from "../../components/LoadingScreen";
 
 function UserList() {
   const [filterName, setFilterName] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const { currentPageUsers, usersById, totalUsers } = useSelector(
-    (state) => state.user
-  );
+  const { currentPageUsers, usersById, totalUsers, isLoading, error } =
+    useSelector((state) => state.user);
 
   const users = currentPageUsers.map((userId) => usersById[userId]);
 
@@ -76,7 +83,34 @@ function UserList() {
             />
           </Grid>
           <Grid item md={12} xs={12}>
-            <UserCard users={users} />
+            {isLoading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100vh",
+                }}
+              >
+                <LoadingScreen />
+              </Box>
+            ) : error ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100vh",
+                }}
+              >
+                <Typography variant="h6" color="error">
+                  {error.message ||
+                    "Something went wrong. Please try again later."}
+                </Typography>
+              </Box>
+            ) : (
+              <UserCard users={users} />
+            )}
           </Grid>
         </Grid>
       </Card>

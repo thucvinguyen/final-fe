@@ -7,12 +7,13 @@ import { useSpring, animated } from "react-spring";
 import { useSearchParams } from "react-router-dom";
 import WorkoutFilter from "../../features/workout/WorkoutFilter";
 import WorkoutCard from "../../features/workout/WorkoutCard";
+import LoadingScreen from "../../components/LoadingScreen";
 
 function ExerciseLibrary() {
   const dispatch = useDispatch();
   const [params, setParams] = useSearchParams();
 
-  const { workouts, currentPage, totalPages } = useSelector(
+  const { workouts, currentPage, totalPages, isLoading, error } = useSelector(
     (state) => state.workout
   );
 
@@ -27,7 +28,7 @@ function ExerciseLibrary() {
     if (!nameParam) {
       dispatch(getWorkouts({ page: currentPage, limit: workoutsPerPage }));
     }
-  }, []);
+  }, [dispatch, nameParam, currentPage, workoutsPerPage]);
 
   const handlePageChange = (event, newPage) => {
     const updatedParams = {};
@@ -77,31 +78,56 @@ function ExerciseLibrary() {
         >
           <WorkoutFilter />
         </Box>
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-          sx={{
-            mt: 3,
-            display: "flex",
-            justifyContent: "center",
-          }}
-          variant="outlined"
-          shape="rounded"
-        />
 
-        <animated.div style={animationProps}>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 2 }}>
-            {workouts &&
-              workouts.map((workout, index) => (
-                <WorkoutCard
-                  key={index}
-                  workout={workout}
-                  workoutName={workout.name} // Pass the workout name dynamically
-                />
-              ))}
-          </Grid>
-        </animated.div>
+        {isLoading ? (
+          <LoadingScreen />
+        ) : error ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+            }}
+          >
+            <Typography variant="h6" color="error">
+              {error.message || "Something went wrong. Please try again later."}
+            </Typography>
+          </Box>
+        ) : (
+          <>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              sx={{
+                mt: 3,
+                display: "flex",
+                justifyContent: "center",
+              }}
+              variant="outlined"
+              shape="rounded"
+            />
+
+            <animated.div style={animationProps}>
+              <Grid
+                container
+                spacing={3}
+                justifyContent="center"
+                sx={{ mt: 2 }}
+              >
+                {workouts &&
+                  workouts.map((workout, index) => (
+                    <WorkoutCard
+                      key={index}
+                      workout={workout}
+                      workoutName={workout.name}
+                    />
+                  ))}
+              </Grid>
+            </animated.div>
+          </>
+        )}
       </Box>
     </>
   );

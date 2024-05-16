@@ -17,7 +17,7 @@ function UserProfilePage() {
     if (userId) {
       dispatch(getUser(userId));
     }
-  }, []);
+  }, [userId, dispatch]);
 
   return (
     <>
