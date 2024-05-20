@@ -25,24 +25,35 @@ function UserProfilePage() {
         <LoadingScreen />
       ) : (
         <>
-          <Typography
-            variant="h2"
+          <Box
             sx={{
-              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
               mt: 4,
               mb: 4,
-              fontFamily: "Copperplate, Fantasy",
             }}
           >
-            {selectedUser ? `${selectedUser.name}` : "User Profile"}
-          </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontFamily: "Copperplate, Fantasy",
+                flexShrink: 0,
+              }}
+            >
+              {selectedUser ? `${selectedUser.name}` : "User Profile"}
+            </Typography>
+          </Box>
           <Box
             sx={{
               display: "flex",
               justifyContent: "center",
             }}
           >
-            {selectedUser && <UserInfo selectedUser={selectedUser} />}
+            {selectedUser && (
+              <Box sx={{ width: "100%", maxWidth: 600 }}>
+                <UserInfo selectedUser={selectedUser} />
+              </Box>
+            )}
           </Box>
           <Box
             sx={{

@@ -38,12 +38,12 @@ function AccountGeneral() {
   const defaultValues = {
     name: user?.name || "",
     email: user?.email || "",
-    gender: user?.gender || "",
+    gender: user?.gender || "Male",
     age: user?.age || "",
     height: user?.height || "",
     weight: user?.weight || "",
     avatarUrl: user?.avatarUrl || "",
-    goal: user?.goal || "",
+    goal: user?.goal || "Lose weight",
   };
 
   const methods = useForm({
@@ -73,6 +73,15 @@ function AccountGeneral() {
     },
     [setValue]
   );
+
+  // const onSubmit = async (data) => {
+  //   try {
+  //     await dispatch(updateUserProfile({ userId: user._id, ...data }));
+  //     window.location.reload(); // Refresh the page on successful update
+  //   } catch (error) {
+  //     console.error("Failed to update profile:", error);
+  //   }
+  // };
 
   const onSubmit = async (data) => {
     try {
