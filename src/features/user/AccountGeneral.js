@@ -78,7 +78,6 @@ function AccountGeneral() {
   const onSubmit = (data) => {
     try {
       dispatch(updateUserProfile({ userId: user._id, ...data }));
-      // window.location.reload();
     } catch (error) {
       console.error("Failed to update profile:", error);
     }

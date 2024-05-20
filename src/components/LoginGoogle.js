@@ -1,12 +1,11 @@
 import { LoadingButton } from "@mui/lab";
 import React from "react";
-import { signUpWithGoogle } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 function LoginGoogle() {
   const navigate = useNavigate();
-  const { loginWithGoogle, auth } = useAuth();
+  const { loginWithGoogle } = useAuth();
 
   const handleGoogle = () => {
     loginWithGoogle(navigate);

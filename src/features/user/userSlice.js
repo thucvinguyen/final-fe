@@ -77,7 +77,6 @@ export const updateUserProfile =
       const response = await apiService.put(`/users/${userId}`, data);
       dispatch(slice.actions.updateUserProfileSuccess(response.data));
       toast.success("Update Profile successfully");
-      // window.location.reload();
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
       toast.error(error.message);
