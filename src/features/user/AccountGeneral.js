@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Box, Grid, Card, Stack, Typography } from "@mui/material";
+import { Box, Grid, Card, Stack, Typography, Link } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import useAuth from "../../hooks/useAuth";
 
@@ -15,6 +15,7 @@ import {
 import { fData } from "../../utils/numberFormat";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "./userSlice";
+import { Link as RouterLink } from "react-router-dom";
 
 const UpdateUserSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -74,105 +75,107 @@ function AccountGeneral() {
     [setValue]
   );
 
-  // const onSubmit = async (data) => {
-  //   try {
-  //     await dispatch(updateUserProfile({ userId: user._id, ...data }));
-  //     window.location.reload(); // Refresh the page on successful update
-  //   } catch (error) {
-  //     console.error("Failed to update profile:", error);
-  //   }
-  // };
-
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     try {
-      await dispatch(updateUserProfile({ userId: user._id, ...data }));
-      window.location.reload(); // Refresh the page on successful update
+      dispatch(updateUserProfile({ userId: user._id, ...data }));
+      // window.location.reload();
     } catch (error) {
       console.error("Failed to update profile:", error);
     }
   };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
-          <Card sx={{ py: 10, px: 3, textAlign: "center" }}>
-            <FUploadAvatar
-              name="avatarUrl"
-              accept="image/*"
-              maxSize={3145728}
-              onDrop={handleDrop}
-              helperText={
-                <Typography
-                  variant="caption"
-                  sx={{
-                    mt: 2,
-                    mx: "auto",
-                    display: "block",
-                    textAlign: "center",
-                    color: "text.secondary",
-                  }}
-                >
-                  Allowed *.jpeg, *.jpg, *.png, *.gif
-                  <br /> max size of {fData(3145728)}
-                </Typography>
-              }
-            />
-          </Card>
-        </Grid>
+    <>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ py: 10, px: 3, textAlign: "center" }}>
+              <FUploadAvatar
+                name="avatarUrl"
+                accept="image/*"
+                maxSize={3145728}
+                onDrop={handleDrop}
+                helperText={
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      mt: 2,
+                      mx: "auto",
+                      display: "block",
+                      textAlign: "center",
+                      color: "text.secondary",
+                    }}
+                  >
+                    Allowed *.jpeg, *.jpg, *.png, *.gif
+                    <br /> max size of {fData(3145728)}
+                  </Typography>
+                }
+              />
+            </Card>
+          </Grid>
 
-        <Grid item xs={12} md={8}>
-          <Card sx={{ p: 3 }}>
-            <Box
-              sx={{
-                display: "grid",
-                rowGap: 3,
-                columnGap: 2,
-                gridTemplateColumns: {
-                  xs: "repeat(1, 1fr)",
-                  sm: "repeat(2, 1fr)",
-                },
-              }}
-            >
-              <FTextField name="name" label="Name" />
-              <FTextField name="email" label="Email" disabled />
-              <FSelect name="gender" label="Gender">
-                <option value="" disabled>
-                  Select Gender
-                </option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </FSelect>{" "}
-              <FTextField name="age" label="Age" />
-              <FTextField name="height" label="Height" />
-              <FTextField name="weight" label="Weight" />
-              <FSelect name="goal" label="Goal">
-                <option value="" disabled>
-                  Select Goal
-                </option>
-                <option value="Lose fat">Lose fat</option>
-                <option value="Gain muscle">Gain muscle</option>
-                <option value="Maintain health">Mantain health</option>
-              </FSelect>
-            </Box>
-
-            <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <LoadingButton
-                type="submit"
-                variant="contained"
-                loading={isSubmitting || isLoading}
+          <Grid item xs={12} md={8}>
+            <Card sx={{ p: 3 }}>
+              <Box
                 sx={{
-                  textTransform: "none",
-                  "& .MuiButton-label": { textTransform: "lowercase" },
+                  display: "grid",
+                  rowGap: 3,
+                  columnGap: 2,
+                  gridTemplateColumns: {
+                    xs: "repeat(1, 1fr)",
+                    sm: "repeat(2, 1fr)",
+                  },
                 }}
               >
-                Save Changes
-              </LoadingButton>
-            </Stack>
-          </Card>
+                <FTextField name="name" label="Name" />
+                <FTextField name="email" label="Email" disabled />
+                <FSelect name="gender" label="Gender">
+                  <option value="" disabled>
+                    Select Gender
+                  </option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </FSelect>{" "}
+                <FTextField name="age" label="Age" />
+                <FTextField name="height" label="Height" />
+                <FTextField name="weight" label="Weight" />
+                <FSelect name="goal" label="Goal">
+                  <option value="" disabled>
+                    Select Goal
+                  </option>
+                  <option value="Lose fat">Lose fat</option>
+                  <option value="Gain muscle">Gain muscle</option>
+                  <option value="Maintain health">Mantain health</option>
+                </FSelect>
+              </Box>
+
+              <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
+                <LoadingButton
+                  type="submit"
+                  variant="contained"
+                  loading={isSubmitting || isLoading}
+                  sx={{
+                    textTransform: "none",
+                    "& .MuiButton-label": { textTransform: "lowercase" },
+                  }}
+                >
+                  Save Changes
+                </LoadingButton>
+
+                <Typography
+                  variant="body2"
+                  sx={{ display: "flex", justifyContent: "flex-end" }}
+                >
+                  <Link component={RouterLink} to="/features/calorie-dashboard">
+                    Back to dashboard
+                  </Link>
+                </Typography>
+              </Stack>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </FormProvider>
+      </FormProvider>
+    </>
   );
 }
 

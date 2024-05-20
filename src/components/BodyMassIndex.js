@@ -131,12 +131,11 @@ function BodyMassIndex({ user }) {
           mt: 3,
         }}
       >
-        <Typography sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Link
-            component={RouterLink}
-            to="/account"
-            sx={{ textDecoration: "underline" }}
-          >
+        <Typography
+          variant="body2"
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
+          <Link component={RouterLink} to="/account">
             Update your information here to re-calculate BMI
           </Link>
         </Typography>

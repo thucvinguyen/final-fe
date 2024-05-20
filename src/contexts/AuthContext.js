@@ -45,7 +45,8 @@ const reducer = (state, action) => {
         user: null,
       };
     case UPDATE_PROFILE:
-      const { name, age, weight, height, postCount } = action.payload;
+      const { name, age, weight, height, postCount, avatarUrl } =
+        action.payload;
       return {
         ...state,
         user: {
@@ -55,6 +56,7 @@ const reducer = (state, action) => {
           weight,
           height,
           postCount,
+          avatarUrl,
         },
       };
     default:
