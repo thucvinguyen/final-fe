@@ -69,11 +69,11 @@ function LoginPage() {
   return (
     <Container maxWidth="lg">
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <Timeline />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
               {!!errors.responseError && (
