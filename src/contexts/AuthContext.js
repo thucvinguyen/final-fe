@@ -2,7 +2,8 @@ import { createContext, useReducer, useEffect } from "react";
 import { useSelector } from "react-redux";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 
 const initialState = {
   isInitialized: false,
@@ -170,7 +171,6 @@ function AuthProvider({ children }) {
 
   const loginWithGoogle = async (navigate) => {
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
 
     signInWithPopup(auth, provider)
       .then(async (result) => {
