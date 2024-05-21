@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Dialog,
   DialogTitle,
@@ -39,15 +39,6 @@ const WorkoutModal = ({ open, onClose, workoutName }) => {
     },
   });
 
-  useEffect(() => {
-    methods.reset({
-      name: workoutName,
-      sets: "",
-      reps: "",
-      date: dayjs(),
-    });
-  }, [workoutName]);
-
   const {
     handleSubmit,
     reset,
@@ -55,8 +46,12 @@ const WorkoutModal = ({ open, onClose, workoutName }) => {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log("data", data);
-    dispatch(createExercise(data)).then(() => reset());
+    dispatch(createExercise(data)).then(() => {
+      reset();
+      setTimeout(() => {
+        onClose();
+      }, 1000);
+    });
   };
 
   return (

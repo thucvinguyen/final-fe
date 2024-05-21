@@ -64,7 +64,6 @@ function RegisterPage() {
   } = methods;
 
   const onSubmit = async (data) => {
-    console.log(data);
     const { name, email, password, goal, gender, height, weight } = data;
     try {
       await auth.register(

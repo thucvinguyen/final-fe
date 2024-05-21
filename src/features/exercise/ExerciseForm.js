@@ -39,7 +39,6 @@ function ExerciseForm() {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log("data", data);
     dispatch(createExercise(data)).then(() => reset());
   };
 

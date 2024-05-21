@@ -22,13 +22,12 @@ function WorkoutSearch() {
     if (levelParam) updatedParams.level = levelParam;
 
     if (searchQuery.trim() !== "") {
-      updatedParams.name = searchQuery; // Add the name parameter from the search query
+      updatedParams.name = searchQuery;
     }
 
-    setParams(updatedParams); // Update the URL parameters
+    setParams(updatedParams);
 
     dispatch(getWorkouts({ page: 1, limit: 9, ...updatedParams }));
-    console.log(updatedParams);
   };
 
   return (

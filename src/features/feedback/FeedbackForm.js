@@ -26,7 +26,6 @@ const defaultValues = {
 
 function FeedbackForm() {
   const [submitted, setSubmitted] = useState(false);
-  // const [rating, setRating] = useState(5); // State to hold rating value
 
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.feedback);
@@ -43,7 +42,6 @@ function FeedbackForm() {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log("data", data);
     dispatch(createFeedback(data)).then(() => reset());
     setSubmitted(true);
   };

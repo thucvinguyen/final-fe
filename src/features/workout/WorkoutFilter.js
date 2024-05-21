@@ -60,11 +60,9 @@ function WorkoutSort() {
     }
   }, []);
 
-  // save value in the filter field
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
-    console.log("name", name);
+
     setSortOptions((prevOptions) => ({
       ...prevOptions,
       [name]: value,
@@ -87,10 +85,8 @@ function WorkoutSort() {
     if (sortOptions.level) {
       sortParams.level = sortOptions.level;
     }
-    console.log("sortParams", sortParams);
 
     if (Object.keys(sortParams).length > 0) {
-      console.log("sort param");
       setParams(sortParams);
       dispatch(getWorkouts({ page: 1, limit: 9, ...sortParams }));
     }

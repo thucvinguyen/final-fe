@@ -86,7 +86,7 @@ function ExerciseEdit({ exercise, handleCloseModal, setEditMode }) {
             variant="contained"
             loading={isSubmitting || isLoading}
             color="primary"
-            sx={{ marginRight: 2 }} // Add margin-right to create space between the buttons
+            sx={{ marginRight: 2 }}
           >
             Save
           </LoadingButton>

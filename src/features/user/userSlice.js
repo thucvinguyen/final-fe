@@ -114,7 +114,6 @@ export const getCurrentUserFull = () => async (dispatch) => {
   }
 };
 
-// for community
 export const getCommunityUsers =
   ({ filterName, page = 1, limit = 12 }) =>
   async (dispatch) => {

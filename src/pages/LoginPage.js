@@ -1,5 +1,3 @@
-// src/pages/LoginPage.js
-
 import React, { useState } from "react";
 import {
   Link,
@@ -42,7 +40,6 @@ function LoginPage() {
   const location = useLocation();
   const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  // const { loginWithGoogle, auth } = useAuth();
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),

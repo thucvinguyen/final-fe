@@ -13,7 +13,6 @@ function FDate({ name }) {
       name={name}
       control={control}
       render={({ field }) => {
-        // console.log(field);
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>

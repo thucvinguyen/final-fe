@@ -38,7 +38,6 @@ function MealForm() {
   } = methods;
 
   const onSubmit = (data) => {
-    console.log("Submitted data:", data);
     dispatch(createMeal(data)).then(() => reset());
   };
 
