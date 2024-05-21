@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Pagination, Typography } from "@mui/material";
 import WorkoutSearch from "../../features/workout/WorkoutSearch";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import LoadingScreen from "../../components/LoadingScreen";
 function ExerciseLibrary() {
   const dispatch = useDispatch();
   const [params, setParams] = useSearchParams();
+  const [fetchedAll, setFetchedAll] = useState(false);
 
   const { workouts, currentPage, totalPages, isLoading, error } = useSelector(
     (state) => state.workout
@@ -25,10 +26,11 @@ function ExerciseLibrary() {
   const levelParam = params.get("level");
 
   useEffect(() => {
-    if (!nameParam) {
+    if (!nameParam && !fetchedAll) {
       dispatch(getWorkouts({ page: currentPage, limit: workoutsPerPage }));
+      setFetchedAll(true);
     }
-  }, [dispatch, nameParam, currentPage, workoutsPerPage]);
+  }, [dispatch, nameParam, currentPage, workoutsPerPage, fetchedAll]);
 
   const handlePageChange = (event, newPage) => {
     const updatedParams = {};
@@ -41,9 +43,12 @@ function ExerciseLibrary() {
     updatedParams.page = newPage;
 
     setParams(updatedParams);
-    dispatch(
-      getWorkouts({ page: newPage, limit: workoutsPerPage, ...updatedParams })
-    );
+    // Chỉ gọi getWorkouts khi có nameParam hoặc khi đã gọi getWorkouts lần đầu tiên
+    if (nameParam || fetchedAll) {
+      dispatch(
+        getWorkouts({ page: newPage, limit: workoutsPerPage, ...updatedParams })
+      );
+    }
   };
 
   const animationProps = useSpring({
