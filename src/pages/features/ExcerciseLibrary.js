@@ -43,7 +43,6 @@ function ExerciseLibrary() {
     updatedParams.page = newPage;
 
     setParams(updatedParams);
-    // Chỉ gọi getWorkouts khi có nameParam hoặc khi đã gọi getWorkouts lần đầu tiên
     if (nameParam || fetchedAll) {
       dispatch(
         getWorkouts({ page: newPage, limit: workoutsPerPage, ...updatedParams })
