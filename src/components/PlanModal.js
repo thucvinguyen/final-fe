@@ -56,7 +56,7 @@ function PlanModal({ open, onClose }) {
           }}
           onClick={onClose}
         >
-          Proceed Payment
+          Get Start
         </Button>
       </Box>
     </Dialog>

@@ -32,15 +32,21 @@ function Plan() {
       ],
     },
     {
+      title: "Basic",
+      price: "$9.99",
+      features: ["All in Free plan, plus:", "Remove Ads", "Instruction Videos"],
+    },
+    {
       title: "Pro",
-      price: "$10",
-      features: ["All in Free plan, plus:", "Instruction Videos for Exercise"],
+      price: "$19.99",
+      features: ["All in Basic plan, plus:", "Connect Users"],
     },
   ];
 
-  const HoverCard = styled(Card)(({ theme }) => ({
+  const HoverCard = styled(Card)(() => ({
     transition: "transform 0.2s ease-in-out",
     transform: "scale(1)",
+    cursor: "pointer",
     "&:hover": {
       transform: "scale(1.1)",
     },
@@ -80,6 +86,7 @@ function Plan() {
           {plans.map((plan, index) => (
             <Grid item xs={12} sm={6} md={4} sx={{ padding: 2 }} key={index}>
               <HoverCard
+                onClick={() => handleSelect(index)}
                 sx={{
                   minHeight: "100%",
                   transform: selectedPlan === index ? "scale(1.1)" : "scale(1)",
@@ -93,7 +100,10 @@ function Plan() {
                     mb={2}
                   >
                     <IconButton
-                      onClick={() => handleSelect(index)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelect(index);
+                      }}
                       color="primary"
                       sx={{ ml: 1 }}
                     >
@@ -114,10 +124,25 @@ function Plan() {
                       {plan.title}
                     </Typography>
                   </Box>
-                  <Typography variant="h6" align="center" gutterBottom>
-                    {plan.price}
-                    {plan.price !== "$0" && "/month"}
-                  </Typography>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="baseline"
+                    mb={2}
+                  >
+                    <Typography
+                      variant="h4"
+                      align="center"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      {plan.price}
+                    </Typography>
+                    {plan.price !== "$0" && (
+                      <Typography align="center" sx={{ ml: 1 }}>
+                        /month
+                      </Typography>
+                    )}
+                  </Box>
                   <Box>
                     {plan.features.map((feature, idx) => (
                       <Box key={idx} display="flex" alignItems="center" my={1}>
