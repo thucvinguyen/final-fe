@@ -9,6 +9,7 @@ import image_2 from "../images/feature2_img.png";
 import image_3 from "../images/feature3_img.png";
 import Support from "../components/Support";
 import Community from "../components/Community";
+import Plan from "../components/Plan";
 
 const fadeInStyle = {
   opacity: 0,
@@ -69,7 +70,6 @@ function HomePage() {
         </Typography>
         <img src={homePageImg} alt="logo" style={{ width: "90%" }} />
       </Container>
-
       <Container
         maxWidth="md"
         sx={{ my: 4 }}
@@ -115,7 +115,6 @@ function HomePage() {
           </Grid>
         </Grid>
       </Container>
-
       <Container
         maxWidth="md"
         sx={{ textAlign: "center", my: 4 }}
@@ -132,6 +131,24 @@ function HomePage() {
           Community
         </Typography>
         <Community />
+      </Container>
+
+      <Container
+        maxWidth="md"
+        sx={{ textAlign: "center", my: 4 }}
+        ref={supportRef}
+        style={supportInView ? fadeInStyle : {}}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            mt: 10,
+            fontFamily: "Copperplate, Fantasy",
+          }}
+        >
+          Choose your plan
+        </Typography>
+        <Plan />
       </Container>
 
       <Container

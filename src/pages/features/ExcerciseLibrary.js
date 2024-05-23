@@ -25,6 +25,7 @@ function ExerciseLibrary() {
   const equipmentParam = params.get("equipment");
   const levelParam = params.get("level");
 
+  //  Call getWorkouts here when no name param AND not fetch all workouts (when loading the page initially)
   useEffect(() => {
     if (!nameParam && !fetchedAll) {
       dispatch(getWorkouts({ page: currentPage, limit: workoutsPerPage }));

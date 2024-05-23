@@ -116,6 +116,10 @@ const WorkoutModal = ({ open, onClose, workoutName }) => {
                 variant="contained"
                 loading={isSubmitting || isLoading}
                 color="primary"
+                sx={{
+                  textTransform: "none",
+                  "& .MuiButton-label": { textTransform: "lowercase" },
+                }}
               >
                 Add Exercise
               </LoadingButton>
