@@ -34,17 +34,17 @@ function Plan() {
     {
       title: "Basic",
       price: "$9.99",
-      features: ["All in Free plan, plus:", "Remove Ads", "Instruction Videos"],
+      features: ["All in Free plan, plus:", "Remove Ads", "Connect Users"],
     },
     {
       title: "Pro",
       price: "$19.99",
-      features: ["All in Basic plan, plus:", "Connect Users"],
+      features: ["All in Basic plan, plus:", "Instruction Videos"],
     },
   ];
 
-  const HoverCard = styled(Card)(() => ({
-    transition: "transform 0.2s ease-in-out",
+  const HoverCard = styled(Card)(({ theme }) => ({
+    transition: "transform 0.1s ease-in-out",
     transform: "scale(1)",
     cursor: "pointer",
     "&:hover": {
@@ -68,6 +68,13 @@ function Plan() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const HoverButton = styled(Button)({
+    transition: "all 0.1s ease-in-out",
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+  });
 
   return (
     <>
@@ -165,7 +172,7 @@ function Plan() {
           mt: 2,
         }}
       >
-        <Button
+        <HoverButton
           variant="contained"
           sx={{
             textTransform: "none",
@@ -174,7 +181,7 @@ function Plan() {
           onClick={handleOpenModal}
         >
           Choose Plan
-        </Button>
+        </HoverButton>
       </Box>
       <Box
         sx={{

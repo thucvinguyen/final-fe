@@ -161,6 +161,10 @@ function RegisterPage() {
             type="submit"
             variant="contained"
             loading={isSubmitting}
+            sx={{
+              textTransform: "none",
+              "& .MuiButton-label": { textTransform: "lowercase" },
+            }}
           >
             Register
           </LoadingButton>
