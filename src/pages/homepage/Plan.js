@@ -12,8 +12,8 @@ import { styled } from "@mui/system";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import PlanModal from "./PlanModal";
-import planImg from "../images/plan_img.png";
+import PlanModal from "../../components/PlanModal";
+import planImg from "../../images/plan_img.png";
 
 function Plan() {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -79,6 +79,15 @@ function Plan() {
   return (
     <>
       <Box sx={{ padding: 2 }}>
+        <Typography
+          variant="h2"
+          sx={{
+            mt: 10,
+            fontFamily: "Copperplate, Fantasy",
+          }}
+        >
+          Choose your plan
+        </Typography>
         <Box
           sx={{
             display: "flex",

@@ -1,6 +1,6 @@
 import React from "react";
-import communityImg from "../images/community_img.png";
-import { Box, Button, Container, Typography } from "@mui/material";
+import communityImg from "../../images/community_img.png";
+import { Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
 
@@ -13,16 +13,23 @@ const HoverButton = styled(Button)({
 
 function Community() {
   return (
-    <Container maxWidth="md" sx={{ textAlign: "center", my: 4 }}>
-      <div>
-        <Typography variant="h8" color="textSecondary" gutterBottom>
-          Engage with our diverse community of fitness enthusiasts and share
-          your journey towards a healthier lifestyle.
-        </Typography>
-      </div>
-      <div>
-        <img src={communityImg} alt="logo" style={{ width: "70%" }} />
-      </div>
+    <>
+      <Typography
+        variant="h2"
+        sx={{
+          mt: 10,
+          fontFamily: "Copperplate, Fantasy",
+        }}
+      >
+        Community
+      </Typography>
+      <Typography variant="h8" color="textSecondary" gutterBottom>
+        Engage with our diverse community of fitness enthusiasts and share your
+        journey towards a healthier lifestyle.
+      </Typography>
+
+      <img src={communityImg} alt="logo" style={{ width: "70%" }} />
+
       <Box sx={{ textAlign: "center", mt: 2, mb: 2 }}>
         <HoverButton
           variant="contained"
@@ -37,7 +44,7 @@ function Community() {
           Explore Now
         </HoverButton>
       </Box>
-    </Container>
+    </>
   );
 }
 
