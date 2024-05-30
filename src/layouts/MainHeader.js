@@ -6,11 +6,10 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-
-import Logo from "../components/Logo";
-import { Avatar, Divider } from "@mui/material";
-import useAuth from "../hooks/useAuth";
+import { Avatar, Divider, Link } from "@mui/material";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
+import Logo from "../components/Logo";
+import useAuth from "../hooks/useAuth";
 
 function MainHeader() {
   const { user, logout } = useAuth();
@@ -32,7 +31,7 @@ function MainHeader() {
     try {
       handleMenuClose();
       await logout(() => {
-        navigate("/login");
+        navigate("/");
       });
     } catch (error) {
       console.error(error);
@@ -127,14 +126,62 @@ function MainHeader() {
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
-          <Box>
-            <Avatar
-              onClick={handleProfileMenuOpen}
-              src={user.avatarUrl}
-              alt={user.name}
-              sx={{ width: 32, height: 32 }}
-            />
-          </Box>
+
+          <Typography variant="h7" sx={{ mr: 3 }}>
+            <Link
+              component={RouterLink}
+              to="/features/exercise-library"
+              sx={{
+                textDecoration: "none",
+                fontWeight: "bold",
+                color: "inherit",
+                "&:hover": {
+                  color: "#ffbd59",
+                },
+              }}
+            >
+              Exercise Library
+            </Link>
+          </Typography>
+          <Typography variant="h7" sx={{ mr: 3 }}>
+            <Link
+              component={RouterLink}
+              to="/features/fitness-tracker"
+              sx={{
+                textDecoration: "none",
+                fontWeight: "bold",
+                color: "inherit",
+                "&:hover": {
+                  color: "#ffbd59",
+                },
+              }}
+            >
+              Fitness Tracker
+            </Link>
+          </Typography>
+          <Typography variant="h7" sx={{ mr: 3 }}>
+            <Link
+              component={RouterLink}
+              to="/features/calorie-dashboard"
+              sx={{
+                textDecoration: "none",
+                fontWeight: "bold",
+                color: "inherit",
+                "&:hover": {
+                  color: "#ffbd59",
+                },
+              }}
+            >
+              Calorie Dashboard
+            </Link>
+          </Typography>
+
+          <Avatar
+            onClick={handleProfileMenuOpen}
+            src={user.avatarUrl}
+            alt={user.name}
+            sx={{ width: 32, height: 32, marginRight: 2, cursor: "pointer" }}
+          />
         </Toolbar>
       </AppBar>
       {renderMenu}

@@ -10,11 +10,14 @@ import {
 } from "@mui/material";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import WorkoutModal from "./WorkoutModal";
+import { useNavigate } from "react-router-dom";
 
 function WorkoutCard({ workout }) {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = (event) => {
+    event.stopPropagation();
     setShowModal(true);
   };
 
@@ -26,6 +29,10 @@ function WorkoutCard({ workout }) {
     setShowModal(true);
   };
 
+  const handleNavigate = () => {
+    navigate(`/features/exercise-library/${workout._id}`);
+  };
+
   return (
     <>
       <Paper
@@ -33,7 +40,9 @@ function WorkoutCard({ workout }) {
         sx={{
           mt: 4,
           ml: 3,
+          cursor: "pointer",
         }}
+        onClick={handleNavigate}
       >
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <IconButton onClick={handleClick}>

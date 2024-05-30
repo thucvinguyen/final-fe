@@ -8,6 +8,7 @@ import { FTextField, FormProvider } from "../../components/form";
 import { Box, Grid, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import CustomRating from "./Rating";
+import useAuth from "../../hooks/useAuth";
 
 const feedbackSchema = yup.object().shape({
   rating: yup
@@ -50,6 +51,8 @@ function FeedbackForm() {
     setValue("rating", value);
   };
 
+  const { isAuthenticated } = useAuth();
+
   return (
     <Box
       display="flex"
@@ -85,18 +88,24 @@ function FeedbackForm() {
               </Grid>
               <Grid item xs={12}>
                 <Box display="flex" justifyContent="center" mt={2}>
-                  <LoadingButton
-                    type="submit"
-                    variant="contained"
-                    loading={isSubmitting || isLoading}
-                    color="primary"
-                    sx={{
-                      textTransform: "none",
-                      "& .MuiButton-label": { textTransform: "lowercase" },
-                    }}
-                  >
-                    Submit
-                  </LoadingButton>
+                  {isAuthenticated ? (
+                    <LoadingButton
+                      type="submit"
+                      variant="contained"
+                      loading={isSubmitting || isLoading}
+                      color="primary"
+                      sx={{
+                        textTransform: "none",
+                        "& .MuiButton-label": { textTransform: "lowercase" },
+                      }}
+                    >
+                      Submit
+                    </LoadingButton>
+                  ) : (
+                    <Typography variant="body1" color="textSecondary">
+                      Please log in to submit feedback.
+                    </Typography>
+                  )}
                 </Box>
               </Grid>
             </Grid>

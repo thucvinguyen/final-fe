@@ -9,6 +9,7 @@ const initialState = {
   totalWorkouts: 0,
   currentPage: 1,
   totalPages: 1,
+  selectedWorkout: null,
 };
 
 const slice = createSlice({
@@ -34,6 +35,12 @@ const slice = createSlice({
       state.currentPage = page;
       state.totalPages = totalPages;
     },
+
+    getWorkoutByIdSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.selectedWorkout = action.payload;
+    },
   },
 });
 
@@ -54,3 +61,14 @@ export const getWorkouts =
       toast.error(error.message);
     }
   };
+
+export const getWorkoutById = (id) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/workouts/${id}`);
+    dispatch(slice.actions.getWorkoutByIdSuccess(response.data.workout));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};

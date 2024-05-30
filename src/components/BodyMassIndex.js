@@ -1,12 +1,8 @@
 import React from "react";
 import { Typography, Card, CardContent, Grid, Link } from "@mui/material";
-import { useLocation } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 
 function BodyMassIndex({ user }) {
-  const location = useLocation();
-  const path = location.pathname;
-
   const { weight, height, gender } = user;
 
   const calculateBMI = () => {
@@ -35,18 +31,8 @@ function BodyMassIndex({ user }) {
   };
   const bmiStatus = getBMIStatus(bmi);
 
-  let title;
-  if (path === "/me") {
-    title = "Profile";
-  } else if (path === "/features/calorie-dashboard") {
-    title = "Calorie Dashboard";
-  }
-
   return (
     <>
-      <Typography variant="h4" sx={{ mb: 2, textAlign: "center" }}>
-        {title}
-      </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Card

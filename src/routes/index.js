@@ -13,6 +13,8 @@ import ExcerciseLibrary from "../pages/features/ExcerciseLibrary";
 import FitnessTracker from "../pages/features/FitnessTracker";
 import CalorieDashboard from "../pages/features/CalorieDashboard";
 import CommunityExplore from "../pages/CommunityExplore";
+import WorkoutDetail from "../features/workout/WorkoutDetail";
+import PlanDetail from "../pages/homepage/PlanDetail";
 
 function Router() {
   return (
@@ -25,7 +27,7 @@ function Router() {
           </AuthRequire>
         }
       >
-        <Route index element={<HomePage />} />
+        <Route element={<HomePage />} />
         <Route path="me" element={<CalorieDashboard />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="user/:userId" element={<UserProfilePage />} />
@@ -34,14 +36,20 @@ function Router() {
           path="features/exercise-library"
           element={<ExcerciseLibrary />}
         />
+        <Route
+          path="/features/exercise-library/:id"
+          element={<WorkoutDetail />}
+        />
         <Route path="features/fitness-tracker" element={<FitnessTracker />} />
         <Route
           path="features/calorie-dashboard"
           element={<CalorieDashboard />}
         />
+        <Route path="/subscription" element={<PlanDetail />} />
       </Route>
 
       <Route element={<BlankLayout />}>
+        <Route index element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
